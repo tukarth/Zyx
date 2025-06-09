@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro no GitHub</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    input, button {
+      display: block;
+      width: 80%;
+      max-width: 300px;
+      margin: 10px auto;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #333;
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+    button {
+      background: #007BFF;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
 
+  <h2>Registro no GitHub</h2>
+
+  <form id="register-form">
+      <input type="text" id="username" placeholder="Usuário" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Senha" required>
+      <button type="submit">Registrar</button>
+  </form>
+
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      alert(`Registro realizado com sucesso! Usuário: ${username}`);
+      
+      // Aqui você pode adicionar lógica para enviar os dados para um backend que 
+      // interage com a API do GitHub para criar uma conta
+    });
+  </script>
+
+</body>
+</html>
