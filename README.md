@@ -66,19 +66,19 @@
 
   <form id="authForm">
     <h2>Autenticação</h2>
-    <input type="email" id="email" placeholder="E-mail" required>
-    <input type="password" id="password" placeholder="Senha" required>
+    <input type="email" id="email" placeholder="E-mail" required />
+    <input type="password" id="password" placeholder="Senha" required />
     <button type="button" id="loginBtn">Entrar</button>
     <button type="button" id="signupBtn">Cadastrar</button>
     <div id="msg" class="message"></div>
   </form>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"></script>
+  <!-- Firebase SDKs (incluindo firebase completo) -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"></script>
 
-  <!-- Configuração com seu projeto -->
   <script>
+    // Configuração do seu projeto Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyAEtOJtXMIclBzLNNsEXJKqF4Rsqg_AAHs",
       authDomain: "arthur-dba38.firebaseapp.com",
@@ -92,39 +92,39 @@
     firebase.initializeApp(firebaseConfig);
   </script>
 
-  <!-- Script de login/cadastro -->
   <script>
     const loginBtn = document.getElementById("loginBtn");
     const signupBtn = document.getElementById("signupBtn");
     const msgDiv = document.getElementById("msg");
 
     loginBtn.addEventListener("click", () => {
-      const email = document.getElementById("email").value;
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
-          msgDiv.textContent = "Login realizado com sucesso!";
-          window.location.href = "dashboard.html";
+          msgDiv.textContent = "✅ Login realizado com sucesso!";
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 1500);
         })
         .catch(error => {
-          msgDiv.textContent = "Erro ao fazer login: " + error.message;
+          msgDiv.textContent = "❌ Erro no login: " + error.message;
         });
     });
 
     signupBtn.addEventListener("click", () => {
-      const email = document.getElementById("email").value;
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(() => {
-          msgDiv.textContent = "Usuário cadastrado com sucesso!";
+          msgDiv.textContent = "✅ Usuário cadastrado com sucesso!";
         })
         .catch(error => {
-          msgDiv.textContent = "Erro ao cadastrar: " + error.message;
+          msgDiv.textContent = "❌ Erro no cadastro: " + error.message;
         });
     });
   </script>
-
 </body>
 </html>
