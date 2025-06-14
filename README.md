@@ -1,9 +1,9 @@
-<link rel="icon" href="data:,">
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login com Firebase</title>
+  <link rel="icon" href="data:,"> <!-- FAVICON REMOVIDO AQUI -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -65,7 +65,7 @@
 <body>
 
   <form id="authForm">
-         <h3>Entrar na Plataforma</h3>
+    <h3>Entrar na Plataforma</h3>
     <input type="email" id="email" placeholder="E-mail" required />
     <input type="password" id="password" placeholder="Senha" required />
     <button type="button" id="loginBtn">Entrar</button>
