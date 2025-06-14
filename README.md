@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login com Firebase</title>
+  <title>Login/Cadastro com Firebase</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -25,7 +25,6 @@
       max-width: 400px;
       width: 100%;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      margin-bottom: 30px;
     }
 
     input, button {
@@ -54,32 +53,31 @@
       text-align: center;
       margin-bottom: 20px;
     }
+
+    .message {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #1abc9c;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Formulário de Login -->
-  <form id="loginForm">
-    <h2>Login</h2>
+  <form id="authForm">
+    <h2>Autenticação</h2>
     <input type="email" id="email" placeholder="E-mail" required>
     <input type="password" id="password" placeholder="Senha" required>
-    <button type="submit">Entrar</button>
-  </form>
-
-  <!-- Formulário de Cadastro -->
-  <form id="signupForm">
-    <h2>Cadastrar Usuário</h2>
-    <input type="email" id="newEmail" placeholder="Novo e-mail" required>
-    <input type="password" id="newPassword" placeholder="Nova senha" required>
-    <button type="submit">Cadastrar</button>
+    <button type="button" id="loginBtn">Entrar</button>
+    <button type="button" id="signupBtn">Cadastrar</button>
+    <div id="msg" class="message"></div>
   </form>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js"></script>
 
-  <!-- Inicialização do Firebase com seus dados -->
+  <!-- Configuração com seu projeto -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyAEtOJtXMIclBzLNNsEXJKqF4Rsqg_AAHs",
@@ -92,40 +90,38 @@
     };
 
     firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
   </script>
 
-  <!-- Lógica de Login -->
+  <!-- Script de login/cadastro -->
   <script>
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-      event.preventDefault();
+    const loginBtn = document.getElementById("loginBtn");
+    const signupBtn = document.getElementById("signupBtn");
+    const msgDiv = document.getElementById("msg");
+
+    loginBtn.addEventListener("click", () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
       firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          alert("Login realizado com sucesso!");
-          window.location.href = "dashboard.html"; // redireciona após login
+        .then(() => {
+          msgDiv.textContent = "Login realizado com sucesso!";
+          window.location.href = "dashboard.html";
         })
-        .catch((error) => {
-          alert("Erro ao fazer login: " + error.message);
+        .catch(error => {
+          msgDiv.textContent = "Erro ao fazer login: " + error.message;
         });
     });
-  </script>
 
-  <!-- Lógica de Cadastro -->
-  <script>
-    document.getElementById("signupForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      const email = document.getElementById("newEmail").value;
-      const password = document.getElementById("newPassword").value;
+    signupBtn.addEventListener("click", () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
       firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          alert("Usuário cadastrado com sucesso!");
+        .then(() => {
+          msgDiv.textContent = "Usuário cadastrado com sucesso!";
         })
-        .catch((error) => {
-          alert("Erro ao cadastrar: " + error.message);
+        .catch(error => {
+          msgDiv.textContent = "Erro ao cadastrar: " + error.message;
         });
     });
   </script>
