@@ -1,3 +1,4 @@
+<link rel="icon" href="data:,">
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
