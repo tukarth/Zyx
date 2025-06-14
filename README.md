@@ -73,12 +73,11 @@
     <div id="msg" class="message"></div>
   </form>
 
-  <!-- Firebase SDKs (incluindo firebase completo) -->
-  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"></script>
+  <!-- Firebase SDKs - versão 8 compatível -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-    // Configuração do seu projeto Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyAEtOJtXMIclBzLNNsEXJKqF4Rsqg_AAHs",
       authDomain: "arthur-dba38.firebaseapp.com",
