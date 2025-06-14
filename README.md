@@ -1,77 +1,89 @@
-
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login com Firebase</title>
-  <link rel="icon" href="data:,"> <!-- FAVICON REMOVIDO AQUI -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script> <!-- Ícones modernos -->
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #000;
-      color: #fff;
+      background-color: #0d0d0d;
+      color: #f0f0f0;
       font-family: 'Poppins', sans-serif;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
       padding: 20px;
     }
 
-    form {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 30px;
-      border-radius: 15px;
+    .container {
+      background-color: #1a1a1a;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
+      text-align: center;
       max-width: 400px;
       width: 100%;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      animation: fadeIn 1s ease;
     }
 
-    input, button {
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #333;
-      background-color: #1a1a1a;
-      color: #fff;
-      font-size: 16px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      color: #ff4f4f;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #aaa;
+      margin-bottom: 30px;
     }
 
     button {
-      background-color: #1abc9c;
+      background-color: #e74c3c;
+      color: white;
       border: none;
+      padding: 14px 26px;
+      font-size: 1rem;
+      border-radius: 10px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
       transition: background 0.3s ease;
     }
 
     button:hover {
-      background-color: #16a085;
+      background-color: #c0392b;
     }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .message {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
-      color: #1abc9c;
+    button i {
+      font-size: 1.2rem;
     }
   </style>
 </head>
 <body>
 
-  <form id="authForm">
-    <h3>Entrar na Plataforma</h3>
-    <input type="email" id="email" placeholder="E-mail" required />
-    <input type="password" id="password" placeholder="Senha" required />
-    <button type="button" id="loginBtn">Entrar</button>
-    <div id="msg" class="message"></div>
-  </form>
+  <div class="container">
+    <h1>Olá, Arthur! 👋</h1>
+    <p>Seja bem-vindo à sua área segura. Você está logado com sucesso.</p>
+    <button id="logoutBtn"><i class="ph ph-sign-out"></i> Sair da conta</button>
+  </div>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -89,26 +101,17 @@
     };
 
     firebase.initializeApp(firebaseConfig);
-  </script>
 
-  <script>
-    const loginBtn = document.getElementById("loginBtn");
-    const msgDiv = document.getElementById("msg");
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = "index.html";
+      }
+    });
 
-    loginBtn.addEventListener("click", () => {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(() => {
-          msgDiv.textContent = "✅ Login realizado com sucesso!";
-          setTimeout(() => {
-            window.location.href = "dashboard.html";
-          }, 1500);
-        })
-        .catch(error => {
-          msgDiv.textContent = "❌ Erro no login: " + error.message;
-        });
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "index.html";
+      });
     });
   </script>
 </body>
