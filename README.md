@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login/Cadastro com Firebase</title>
+  <title>Login com Firebase</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -65,15 +65,14 @@
 <body>
 
   <form id="authForm">
-    <h2>Autenticação</h2>
+    <h2>Login</h2>
     <input type="email" id="email" placeholder="E-mail" required />
     <input type="password" id="password" placeholder="Senha" required />
     <button type="button" id="loginBtn">Entrar</button>
-    <button type="button" id="signupBtn">Cadastrar</button>
     <div id="msg" class="message"></div>
   </form>
 
-  <!-- Firebase SDKs - versão 8 compatível -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
@@ -93,7 +92,6 @@
 
   <script>
     const loginBtn = document.getElementById("loginBtn");
-    const signupBtn = document.getElementById("signupBtn");
     const msgDiv = document.getElementById("msg");
 
     loginBtn.addEventListener("click", () => {
@@ -109,19 +107,6 @@
         })
         .catch(error => {
           msgDiv.textContent = "❌ Erro no login: " + error.message;
-        });
-    });
-
-    signupBtn.addEventListener("click", () => {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          msgDiv.textContent = "✅ Usuário cadastrado com sucesso!";
-        })
-        .catch(error => {
-          msgDiv.textContent = "❌ Erro no cadastro: " + error.message;
         });
     });
   </script>
