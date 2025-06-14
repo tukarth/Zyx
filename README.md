@@ -64,7 +64,7 @@
 <body>
 
   <form id="authForm">
-    <h3>Entrar na Plataforma</h3>
+         <h3>Entrar na Plataforma</h3>
     <input type="email" id="email" placeholder="E-mail" required />
     <input type="password" id="password" placeholder="Senha" required />
     <button type="button" id="loginBtn">Entrar</button>
