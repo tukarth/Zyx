@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Estiloso</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projeto: Água Potável e Saneamento</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0e6b57d.js" crossorigin="anonymous"></script>
   <style>
     body {
       margin: 0;
@@ -14,18 +15,18 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
       padding: 40px 20px;
     }
 
     h1 {
-      margin-bottom: 40px;
+      font-size: 2.2rem;
+      margin-bottom: 30px;
       text-align: center;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 30px;
       width: 100%;
       max-width: 1000px;
@@ -34,57 +35,73 @@
     .card {
       background: linear-gradient(145deg, #1b1b1b, #111);
       border-radius: 15px;
-      padding: 30px 20px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      padding: 25px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+      transition: 0.3s ease-in-out;
       cursor: pointer;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 16px 25px rgba(0, 0, 0, 0.5);
     }
 
     .card i {
-      font-size: 50px;
-      margin-bottom: 15px;
+      font-size: 45px;
       color: #1abc9c;
+      margin-bottom: 15px;
     }
 
     .card h3 {
-      margin: 0;
-      font-weight: 600;
+      margin: 10px 0 8px;
+      font-size: 1.2rem;
     }
 
-    .footer {
+    .card p {
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+
+    footer {
       margin-top: 50px;
+      color: #666;
       font-size: 14px;
-      color: #888;
     }
   </style>
-  <script src="https://kit.fontawesome.com/a2e0e6b57d.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <h1>Bem-vindo ao seu Painel, Arthur 🌟</h1>
+  <h1>Dashboard: Água Potável e Saneamento</h1>
 
   <div class="grid">
-    <div class="card" onclick="alert('Você clicou no Card 1!')">
-      <i class="fas fa-user-circle"></i>
-      <h3>Perfil</h3>
+    <div class="card" onclick="alert('Diagnóstico da comunidade: coleta de dados via questionário e observações.')">
+      <i class="fas fa-search-location"></i>
+      <h3>Diagnóstico</h3>
+      <p>Análise das condições locais e desafios enfrentados pela comunidade.</p>
     </div>
-    <div class="card" onclick="alert('Você clicou no Card 2!')">
-      <i class="fas fa-tasks"></i>
-      <h3>Tarefas</h3>
+
+    <div class="card" onclick="alert('Projetos como Água para Todos e PLANSAB ajudaram a inspirar nossa proposta.')">
+      <i class="fas fa-lightbulb"></i>
+      <h3>Boas Práticas</h3>
+      <p>Iniciativas governamentais e comunitárias que combatem o desperdício.</p>
     </div>
-    <div class="card" onclick="alert('Você clicou no Card 3!')">
-      <i class="fas fa-cog"></i>
-      <h3>Configurações</h3>
+
+    <div class="card" onclick="alert('Conscientização com panfletos em espaços públicos. Mais de 40 pessoas impactadas.')">
+      <i class="fas fa-hand-holding-water"></i>
+      <h3>Intervenção</h3>
+      <p>Ações diretas para promover uso consciente da água e higiene básica.</p>
+    </div>
+
+    <div class="card" onclick="alert('Resultado: conhecimento aplicado, empatia desenvolvida e impacto real.')">
+      <i class="fas fa-chart-line"></i>
+      <h3>Resultados</h3>
+      <p>Reflexões, aprendizados e benefícios gerados à comunidade e ao grupo.</p>
     </div>
   </div>
 
-  <div class="footer">Copilot & Arthur © 2025</div>
+  <footer>
+    Centro Universitário Braz Cubas © 2025 • Arthur & Equipe 💧
+  </footer>
 
 </body>
 </html>
