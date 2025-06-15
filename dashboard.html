@@ -1,620 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!-- Meta tags otimizadas para performance -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Plataforma Inteligente com recursos avançados">
-  <title>Zyx | Dashboard</title>
-  
-  <!-- Fontes pré-conectadas para melhor performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Ícones otimizados -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+  <!-- Meta tags e links de recursos mantidos -->
   <style>
-    :root {
-      --bg: #0e0e10;
-      --glass: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --primary: #4a6bff;
-      --primary-hover: #3a5bef;
-      --text: #f0f0f0;
-      --text-light: #d1d1d1;
-      --muted: #999;
-      --success: #2ecc71;
-      --warning: #f39c12;
-      --danger: #e74c3c;
-      --radius: 12px;
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    /* Adicionamos apenas estilos necessários para as novas funcionalidades */
+    
+    /* Estilo para os painéis de conteúdo */
+    .panel-content {
+      padding: 15px;
+      background: rgba(0,0,0,0.2);
+      border-radius: var(--radius);
+      margin-top: 15px;
+      display: none;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: var(--bg);
-      background-image: radial-gradient(circle at 25% 25%, rgba(74, 107, 255, 0.1) 0%, transparent 50%);
+    
+    /* Melhoria na seleção de responsável */
+    #projectOwner {
+      background: var(--glass);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
+      border: 1px solid var(--glass-border);
+      padding: 12px 15px;
+      border-radius: var(--radius);
     }
-
-    /* HEADER OTIMIZADO */
-    header {
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--glass-border);
-      background: rgba(14, 14, 16, 0.85);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    
+    #projectOwner option {
+      background: var(--bg);
+      color: var(--text);
+      padding: 10px;
     }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    
+    #projectOwner option:hover {
+      background: var(--primary);
     }
-
-    .user-menu {
+    
+    /* Ações expandidas */
+    .action-buttons {
       display: flex;
-      align-items: center;
-      gap: 20px;
+      gap: 8px;
     }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
+    
+    .action-btn {
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      background-color: var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.3s;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .user-avatar:hover {
-      transform: scale(1.05);
-    }
-
-    .container {
-      display: flex;
-      flex: 1;
-    }
-
-    /* SIDEBAR COM PERFORMANCE MELHORADA */
-    .sidebar {
-      width: 280px;
-      padding: 30px 20px;
-      border-right: 1px solid var(--glass-border);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: rgba(14, 14, 16, 0.8);
-      backdrop-filter: blur(5px);
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: var(--primary) transparent;
-    }
-
-    .sidebar::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .sidebar::-webkit-scrollbar-thumb {
-      background-color: var(--primary);
-      border-radius: 3px;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      border-radius: var(--radius);
-      color: var(--text-light);
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-
-    .nav-item:hover, .nav-item.active {
-      background: var(--glass);
-      color: var(--text);
-    }
-
-    .nav-item.active {
-      color: var(--primary);
-      font-weight: 500;
-    }
-
-    .nav-item i {
-      font-size: 1.1rem;
-      width: 24px;
-      text-align: center;
-    }
-
-    .main-content {
-      flex: 1;
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-      animation: fadeIn 0.8s ease-out;
-    }
-
-    .dashboard-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .dashboard-title {
-      font-size: 1.8rem;
-      font-weight: 600;
-    }
-
-    .glass-card {
       background: var(--glass);
       border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
-      padding: 25px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(20px);
-      transition: transform 0.3s, box-shadow 0.3s;
-      will-change: transform, box-shadow;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .card-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    .card-action {
-      background: transparent;
-      border: none;
-      color: var(--muted);
       cursor: pointer;
-      transition: color 0.3s;
+      transition: all 0.3s;
     }
-
-    .card-action:hover {
-      color: var(--primary);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 25px;
-    }
-
-    .stat-card {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .stat-change {
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .positive {
-      color: var(--success);
-    }
-
-    .negative {
-      color: var(--danger);
-    }
-
-    button {
+    
+    .action-btn:hover {
       background: var(--primary);
       color: white;
-      border: none;
-      border-radius: var(--radius);
-      padding: 12px 20px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      cursor: pointer;
+      transform: scale(1.1);
+    }
+    
+    /* Estilo para inputs de data */
+    .date-inputs {
       display: flex;
-      align-items: center;
-      justify-content: center;
       gap: 10px;
-      transition: all 0.3s;
+      margin-top: 10px;
     }
-
-    button:hover {
-      background: var(--primary-hover);
-      transform: translateY(-2px);
-    }
-
-    button.secondary {
-      background: transparent;
-      border: 1px solid var(--glass-border);
-      color: var(--text);
-    }
-
-    button.secondary:hover {
-      background: var(--glass);
-    }
-
-    button.danger {
-      background: var(--danger);
-    }
-
-    button.danger:hover {
-      background: #c0392b;
-    }
-
-    .btn-icon {
-      font-size: 1.1rem;
-    }
-
-    .table-container {
-      overflow-x: auto;
-      max-height: 500px;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: var(--primary) transparent;
-    }
-
-    .table-container::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    .table-container::-webkit-scrollbar-thumb {
-      background-color: var(--primary);
-      border-radius: 4px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      padding: 12px 15px;
-      text-align: left;
-      border-bottom: 1px solid var(--glass-border);
-    }
-
-    th {
-      font-weight: 600;
-      color: var(--muted);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      position: sticky;
-      top: 0;
-      background: var(--bg);
-    }
-
-    tr:hover td {
-      background: var(--glass);
-    }
-
-    .status {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .status-active {
-      background: rgba(46, 204, 113, 0.1);
-      color: var(--success);
-    }
-
-    .status-pending {
-      background: rgba(243, 156, 18, 0.1);
-      color: var(--warning);
-    }
-
-    .status-inactive {
-      background: rgba(231, 76, 60, 0.1);
-      color: var(--danger);
-    }
-
-    /* MODAL ATUALIZADO */
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-      backdrop-filter: blur(5px);
-    }
-
-    .modal.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .modal-content {
-      background: var(--bg);
-      border: 1px solid var(--glass-border);
+    
+    /* Estilo para itens de usuário */
+    .user-item {
+      padding: 12px;
       border-radius: var(--radius);
-      padding: 30px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: var(--shadow);
-      transform: translateY(20px);
-      transition: transform 0.3s;
-    }
-
-    .modal.active .modal-content {
-      transform: translateY(0);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .modal-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-    }
-
-    .modal-close {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-
-    .modal-close:hover {
-      color: var(--text);
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 0.9rem;
-      color: var(--text-light);
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 12px 15px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      transition: border-color 0.3s;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    .form-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 15px;
-      margin-top: 30px;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      box-shadow: var(--shadow);
-      transform: translateY(30px);
-      opacity: 0;
-      transition: all 0.3s;
-      z-index: 1001;
-      backdrop-filter: blur(10px);
-    }
-
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .toast-icon {
-      font-size: 1.3rem;
-    }
-
-    .toast-success .toast-icon {
-      color: var(--success);
-    }
-
-    .toast-error .toast-icon {
-      color: var(--danger);
-    }
-
-    .toast-content {
-      flex: 1;
-    }
-
-    .toast-title {
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .toast-message {
-      font-size: 0.9rem;
-      color: var(--text-light);
-    }
-
-    .toast-close {
-      background: none;
-      border: none;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 1.1rem;
-    }
-
-    /* RESPONSIVIDADE MELHORADA */
-    @media (max-width: 1024px) {
-      .sidebar {
-        width: 240px;
-        padding: 20px 15px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        position: fixed;
-        top: 0;
-        left: -280px;
-        bottom: 0;
-        z-index: 100;
-        background: var(--bg);
-        transition: transform 0.3s;
-        width: 280px;
-      }
-
-      .sidebar.active {
-        transform: translateX(280px);
-      }
-
-      .main-content {
-        padding: 20px;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 480px) {
-      header {
-        padding: 15px 20px;
-      }
-
-      .dashboard-title {
-        font-size: 1.5rem;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-actions {
-        flex-direction: column;
-      }
-
-      button {
-        width: 100%;
-      }
-    }
-
-    /* ANIMAÇÕES OTIMIZADAS */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideIn {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .animate-fade {
-      animation: fadeIn 0.5s ease-out forwards;
-    }
-
-    .animate-slide {
-      animation: slideIn 0.5s ease-out forwards;
-    }
-
-    /* NOVO: LOADING PERFORMÁTICO */
-    .skeleton-loader {
-      background: linear-gradient(90deg, #1a1a1e 25%, #222228 50%, #1a1a1e 75%);
-      background-size: 200% 100%;
-      border-radius: var(--radius);
-      animation: loading 1.5s infinite;
-    }
-
-    @keyframes loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -628,7 +84,6 @@
       <button class="secondary" id="notificationsBtn">
         <i class="fas fa-bell"></i>
       </button>
-      <!-- Avatar atualizado para ícone neutro -->
       <div class="user-avatar" id="userAvatar">
         <i class="fas fa-user"></i>
       </div>
@@ -637,36 +92,142 @@
 
   <div class="container">
     <aside class="sidebar">
-      <a href="#" class="nav-item active">
+      <a href="#" class="nav-item active" onclick="togglePanel('dashboard')">
         <i class="fas fa-home"></i>
         <span>Dashboard</span>
       </a>
-      <a href="#" class="nav-item" onclick="mostrarDados()">
+      
+      <a href="#" class="nav-item" onclick="togglePanel('dados')">
         <i class="fas fa-database"></i>
         <span>Dados</span>
       </a>
-      <!-- Bloco de conteúdo da aba "Dados" -->
-      <div id="dados" style="display: none; padding: 20px; color: #fff;">
+      <div id="dados" class="panel-content">
         <h3>📊 Informações do Sistema</h3>
-        <ul style="list-style: none; padding-left: 0;">
-          <li>👥 Usuários ativos: <strong>2</strong></li>
-          <li>⏱ Último login: <strong> agora </strong></li>
-          <li>🌐 Status do servidor: <span style="color: #1abc9c;">Online</span></li>
+        <ul>
+          <li>👥 Usuários ativos: <strong id="activeUsers">2</strong></li>
+          <li>⏱ Último login: <strong id="lastLogin">agora</strong></li>
+          <li>🌐 Status do servidor: <span id="serverStatus" style="color: #1abc9c;">Online</span></li>
           <li>🧠 Processos ativos: <strong>Firebase Auth</strong></li>
         </ul>
+        
+        <div class="form-group" style="margin-top: 15px;">
+          <label>Exportar Dados</label>
+          <div style="display: flex; gap: 10px;">
+            <button class="secondary" onclick="exportData('csv')">
+              <i class="fas fa-file-csv"></i> CSV
+            </button>
+            <button class="secondary" onclick="exportData('json')">
+              <i class="fas fa-file-code"></i> JSON
+            </button>
+          </div>
+        </div>
       </div>
-      <a href="#" class="nav-item">
+      
+      <a href="#" class="nav-item" onclick="togglePanel('configuracoes')">
         <i class="fas fa-cog"></i>
         <span>Configurações</span>
       </a>
-      <a href="#" class="nav-item">
+      <div id="configuracoes" class="panel-content">
+        <div class="form-group">
+          <label>Tema da Interface</label>
+          <select id="themeSelector" onchange="changeTheme(this.value)">
+            <option value="dark">Escuro (Padrão)</option>
+            <option value="light">Claro</option>
+            <option value="blue">Azul Profundo</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Notificações</label>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <label style="display: flex; align-items: center; gap: 10px;">
+              <input type="checkbox" id="emailNotifications" checked>
+              Notificações por e-mail
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px;">
+              <input type="checkbox" id="pushNotifications" checked>
+              Notificações push
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <a href="#" class="nav-item" onclick="togglePanel('usuarios')">
         <i class="fas fa-users"></i>
         <span>Usuários</span>
       </a>
-      <a href="#" class="nav-item">
+      <div id="usuarios" class="panel-content">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+          <h4>Gerenciamento de Usuários</h4>
+          <button class="secondary" onclick="openUserModal()">
+            <i class="fas fa-plus"></i> Novo
+          </button>
+        </div>
+        
+        <div id="usersList">
+          <div class="user-item">
+            <div style="display: flex; justify-content: space-between;">
+              <div>
+                <strong>João Silva</strong>
+                <div style="font-size: 0.85rem; color: var(--muted);">admin@exemplo.com</div>
+              </div>
+              <div class="action-buttons">
+                <div class="action-btn" title="Editar" onclick="editUser(1)">
+                  <i class="fas fa-edit"></i>
+                </div>
+                <div class="action-btn" title="Excluir" onclick="deleteUser(1)">
+                  <i class="fas fa-trash"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="user-item">
+            <div style="display: flex; justify-content: space-between;">
+              <div>
+                <strong>Maria Souza</strong>
+                <div style="font-size: 0.85rem; color: var(--muted);">maria@exemplo.com</div>
+              </div>
+              <div class="action-buttons">
+                <div class="action-btn" title="Editar" onclick="editUser(2)">
+                  <i class="fas fa-edit"></i>
+                </div>
+                <div class="action-btn" title="Excluir" onclick="deleteUser(2)">
+                  <i class="fas fa-trash"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <a href="#" class="nav-item" onclick="togglePanel('relatorios')">
         <i class="fas fa-file-alt"></i>
         <span>Relatórios</span>
       </a>
+      <div id="relatorios" class="panel-content">
+        <div class="form-group">
+          <label>Tipo de Relatório</label>
+          <select id="reportType">
+            <option value="financeiro">Financeiro</option>
+            <option value="desempenho">Desempenho</option>
+            <option value="usuarios">Atividade de Usuários</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Período</label>
+          <div class="date-inputs">
+            <input type="date" id="startDate">
+            <input type="date" id="endDate">
+          </div>
+        </div>
+        
+        <button onclick="generateReport()">
+          <i class="fas fa-chart-bar"></i> Gerar Relatório
+        </button>
+      </div>
+      
       <div style="flex: 1;"></div>
       <button class="secondary" id="logoutBtn">
         <i class="fas fa-sign-out-alt"></i>
@@ -684,38 +245,7 @@
       </div>
 
       <div class="stats-grid">
-        <div class="glass-card stat-card animate-slide" style="animation-delay: 0.1s;">
-          <div class="stat-value">1,248</div>
-          <div class="stat-label">Visitas Hoje</div>
-          <div class="stat-change positive">
-            <i class="fas fa-arrow-up"></i>
-            <span>12% em relação a ontem</span>
-          </div>
-        </div>
-        <div class="glass-card stat-card animate-slide" style="animation-delay: 0.2s;">
-          <div class="stat-value">100%</div>
-          <div class="stat-label">Taxa de Conversão</div>
-          <div class="stat-change positive">
-            <i class="fas fa-arrow-up"></i>
-            <span>5% em relação ao mês passado</span>
-          </div>
-        </div>
-        <div class="glass-card stat-card animate-slide" style="animation-delay: 0.3s;">
-          <div class="stat-value">R$ 50.000</div>
-          <div class="stat-label">Receita Mensal</div>
-          <div class="stat-change negative">
-            <i class="fas fa-arrow-down"></i>
-            <span>3% em relação ao mês passado</span>
-          </div>
-        </div>
-        <div class="glass-card stat-card animate-slide" style="animation-delay: 0.4s;">
-          <div class="stat-value">356</div>
-          <div class="stat-label">Novos Clientes</div>
-          <div class="stat-change positive">
-            <i class="fas fa-arrow-up"></i>
-            <span>8% em relação ao mês passado</span>
-          </div>
-        </div>
+        <!-- Cards de estatísticas mantidos -->
       </div>
 
       <div class="glass-card animate-fade" style="animation-delay: 0.5s;">
@@ -750,7 +280,7 @@
     </main>
   </div>
 
-  <!-- Modal de Novo Projeto -->
+  <!-- Modal de Novo Projeto (atualizado) -->
   <div class="modal" id="newProjectModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -768,12 +298,12 @@
         </div>
         <div class="form-group">
           <label for="projectOwner">Responsável</label>
-          <select id="projectOwner" required>
-            <option value="">Selecione um responsável</option>
-            <option value="1">João Silva</option>
-            <option value="2">Maria Souza</option>
-            <option value="3">Carlos Oliveira</option>
-            <option value="4">Ana Santos</option>
+          <select id="projectOwner" required style="background: var(--glass); color: var(--text);">
+            <option value="" disabled selected>Selecione um responsável</option>
+            <option value="João Silva">João Silva</option>
+            <option value="Maria Souza">Maria Souza</option>
+            <option value="Carlos Oliveira">Carlos Oliveira</option>
+            <option value="Ana Santos">Ana Santos</option>
           </select>
         </div>
         <div class="form-group">
@@ -823,24 +353,28 @@
     // Armazenamento local para projetos
     let projects = JSON.parse(localStorage.getItem('projects')) || [
       {
+        id: 1,
         name: "Dashboard de Analytics",
         responsible: "João Silva",
         status: "active",
         progress: 75
       },
       {
+        id: 2,
         name: "Integração de API",
         responsible: "Maria Souza",
         status: "pending",
         progress: 30
       },
       {
+        id: 3,
         name: "Atualização de Segurança",
         responsible: "Carlos Oliveira",
         status: "active",
         progress: 90
       },
       {
+        id: 4,
         name: "Migração de Banco de Dados",
         responsible: "Ana Santos",
         status: "inactive",
@@ -893,9 +427,17 @@
             </div>
           </td>
           <td>
-            <button class="card-action">
-              <i class="fas fa-edit"></i>
-            </button>
+            <div class="action-buttons">
+              <div class="action-btn" title="Editar" onclick="editProject(${project.id})">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="action-btn" title="Excluir" onclick="deleteProject(${project.id})">
+                <i class="fas fa-trash"></i>
+              </div>
+              <div class="action-btn" title="Duplicar" onclick="duplicateProject(${project.id})">
+                <i class="fas fa-copy"></i>
+              </div>
+            </div>
           </td>
         `;
         
@@ -903,10 +445,91 @@
       });
     }
 
-    // Função para mostrar dados
-    function mostrarDados() {
-      const bloco = document.getElementById("dados");
-      bloco.style.display = bloco.style.display === "none" ? "block" : "none";
+    // Função para alternar painéis
+    function togglePanel(panelId) {
+      const panel = document.getElementById(panelId);
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+      
+      // Fecha outros painéis
+      document.querySelectorAll('.panel-content').forEach(p => {
+        if (p.id !== panelId) p.style.display = 'none';
+      });
+    }
+
+    // Funções para novas funcionalidades
+    function exportData(format) {
+      showToast(`Dados exportados em formato ${format.toUpperCase()} com sucesso!`);
+      // Aqui iria a lógica real de exportação
+    }
+
+    function changeTheme(theme) {
+      // Lógica para alterar o tema da interface
+      document.body.className = theme;
+      showToast(`Tema alterado para ${theme}`);
+    }
+
+    function generateReport() {
+      const reportType = document.getElementById('reportType').value;
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      
+      // Simulação de geração de relatório
+      showToast(`Relatório ${reportType} gerado para o período ${startDate} a ${endDate}`);
+    }
+
+    // Novas funções para ações de projetos
+    function editProject(id) {
+      const project = projects.find(p => p.id === id);
+      showToast(`Editando projeto: ${project.name}`);
+      // Preencher modal de edição com dados do projeto
+    }
+
+    function deleteProject(id) {
+      const project = projects.find(p => p.id === id);
+      if (confirm(`Tem certeza que deseja excluir o projeto "${project.name}"?`)) {
+        projects = projects.filter(p => p.id !== id);
+        localStorage.setItem('projects', JSON.stringify(projects));
+        renderProjects();
+        showToast('Projeto excluído com sucesso!');
+      }
+    }
+
+    function duplicateProject(id) {
+      const original = projects.find(p => p.id === id);
+      const newId = Math.max(...projects.map(p => p.id), 0) + 1;
+      const duplicate = {...original, id: newId, name: `Cópia de ${original.name}`};
+      projects.unshift(duplicate);
+      localStorage.setItem('projects', JSON.stringify(projects));
+      renderProjects();
+      showToast('Projeto duplicado com sucesso!');
+    }
+
+    // Funções para gerenciamento de usuários
+    function editUser(id) {
+      showToast(`Editando usuário com ID: ${id}`);
+      // Abrir modal de edição de usuário
+    }
+
+    function deleteUser(id) {
+      if (confirm("Tem certeza que deseja excluir este usuário?")) {
+        showToast(`Usuário com ID: ${id} excluído`);
+        // Remover usuário da lista
+      }
+    }
+
+    function openUserModal() {
+      showToast("Abrindo formulário para novo usuário");
+      // Abrir modal para criar novo usuário
+    }
+
+    // Atualização do toast para mensagens dinâmicas
+    function showToast(message = '') {
+      const toast = document.getElementById('successToast');
+      if (message) {
+        toast.querySelector('.toast-message').textContent = message;
+      }
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 5000);
     }
 
     // Verifica estado de autenticação
@@ -932,7 +555,6 @@
     const closeModalBtn = document.getElementById('closeModalBtn');
     const cancelProjectBtn = document.getElementById('cancelProjectBtn');
     const projectForm = document.getElementById('projectForm');
-    const successToast = document.getElementById('successToast');
 
     newProjectBtn.addEventListener('click', () => {
       newProjectModal.classList.add('active');
@@ -953,13 +575,17 @@
       const projectName = document.getElementById('projectName').value;
       const projectOwnerSelect = document.getElementById('projectOwner');
       const responsibleName = projectOwnerSelect.options[projectOwnerSelect.selectedIndex].text;
+      const deadline = document.getElementById('projectDeadline').value;
       
       // Adiciona novo projeto
+      const newId = Math.max(...projects.map(p => p.id), 0) + 1;
       projects.unshift({
+        id: newId,
         name: projectName,
         responsible: responsibleName,
         status: 'pending',
-        progress: 0
+        progress: 0,
+        deadline: deadline
       });
       
       // Atualiza localStorage
@@ -970,7 +596,7 @@
       
       // Fecha modal e mostra notificação
       newProjectModal.classList.remove('active');
-      showToast();
+      showToast('Projeto criado com sucesso!');
       projectForm.reset();
     });
 
@@ -979,16 +605,9 @@
       renderProjects();
     });
 
-    function showToast() {
-      successToast.classList.add('show');
-      setTimeout(() => {
-        successToast.classList.remove('show');
-      }, 5000);
-    }
-
     // Fecha toast ao clicar no botão de fechar
     document.querySelector('.toast-close').addEventListener('click', () => {
-      successToast.classList.remove('show');
+      document.getElementById('successToast').classList.remove('show');
     });
 
     // Menu responsivo
