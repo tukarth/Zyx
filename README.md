@@ -1,12 +1,3 @@
-<!-- Container da Logo Premium -->
-<div class="logo-container">
-  <div class="logo">
-    <i class="fas fa-atom"></i>
-    <span>Zyx</span>
-    <span class="logo-badge">PREMIUM</span>
-  </div>
-</div>
-
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
