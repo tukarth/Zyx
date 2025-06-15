@@ -114,3 +114,7 @@
   </script>
 </body>
 </html>
+
+ <footer>
+   @tukarth - Todos os direitos reservados. &copy; 2025
+  </footer>
