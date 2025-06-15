@@ -565,9 +565,48 @@
         <i class="fas fa-home"></i>
         <span>Dashboard</span>
       </a>
-      <a href="#" class="nav-item">
-        <i class="fas fa-chart-line"></i>
-        <span>Análises</span>
+      <!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .menu { list-style: none; padding: 0; width: 200px; background: #f4f4f4; border-radius: 5px; }
+        .menu-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #ddd; display: flex; align-items: center; }
+        .menu-item i { margin-right: 8px; }
+        .submenu { display: none; padding: 10px; background: #e0e0e0; border-radius: 5px; }
+        .nav-item { display: block; padding: 5px 0; text-decoration: none; color: #333; }
+        .nav-item:hover { color: #007bff; }
+    </style>
+</head>
+<body>
+
+    <h1>Dashboard Financeiro</h1>
+    <ul class="menu">
+        <li class="menu-item" id="analise-toggle">
+            <i class="fas fa-chart-line"></i> <span>Análises</span>
+        </li>
+        <li class="submenu" id="analise-content">
+            <a href="#" class="nav-item">Receita e Desempenho Financeiro</a>
+            <a href="#" class="nav-item">Taxa de Conversão</a>
+            <a href="#" class="nav-item">Retenção de Clientes</a>
+        </li>
+    </ul>
+
+    <script>
+        $(document).ready(function(){
+            $("#analise-toggle").click(function(){
+                $("#analise-content").slideToggle();
+            });
+        });
+    </script>
+
+</body>
+</html>
       </a>
       </a>
 <a href="#" class="nav-item" onclick="mostrarDados()">
