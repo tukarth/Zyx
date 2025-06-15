@@ -4,15 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login com Firebase</title>
-  <link rel="icon" href="data:,">
+  <link rel="icon" href="data:,"> <!-- FAVICON REMOVIDO AQUI -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
       background-color: #000;
       color: #fff;
@@ -21,9 +15,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh; /* AQUI ESTÁ A CORREÇÃO */
+      min-height: 0vh;
       padding: 0px;
     }
+
 
     form {
       background: rgba(255, 255, 255, 0.05);
@@ -72,7 +67,7 @@
 <body>
 
   <form id="authForm">
-    <h3>Entrar na Plataforma<h3>
+    <h3>Entrar na Plataforma</h3>
     <input type="email" id="email" placeholder="E-mail" required />
     <input type="password" id="password" placeholder="Senha" required />
     <button type="button" id="loginBtn">Entrar</button>
