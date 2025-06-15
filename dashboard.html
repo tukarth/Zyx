@@ -569,9 +569,29 @@
         <i class="fas fa-chart-line"></i>
         <span>Análises</span>
       </a>
-      <a href="#" class="nav-item">
-        <i class="fas fa-database"></i>
-        <span>Dados</span>
+      </a>
+<a href="#" class="nav-item" onclick="mostrarDados()">
+  <i class="fas fa-database"></i>
+  <span>Dados</span>
+</a>
+
+<!-- Bloco de conteúdo da aba "Dados" -->
+<div id="dados" style="display: none; padding: 20px; color: #fff;">
+  <h3>📊 Informações do Sistema</h3>
+  <ul style="list-style: none; padding-left: 0;">
+    <li>👥 Usuários ativos: <strong>12</strong></li>
+    <li>⏱ Último login: <strong>14/06/2025 às 21:55</strong></li>
+    <li>🌐 Status do servidor: <span style="color: #1abc9c;">Online</span></li>
+    <li>🧠 Processos ativos: <strong>Firebase Auth</strong></li>
+  </ul>
+</div>
+
+<script>
+  function mostrarDados() {
+    const bloco = document.getElementById("dados");
+    bloco.style.display = bloco.style.display === "none" ? "block" : "none";
+  }
+</script>
       </a>
       <a href="#" class="nav-item">
         <i class="fas fa-cog"></i>
