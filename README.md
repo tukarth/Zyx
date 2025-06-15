@@ -25,7 +25,7 @@
       border-radius: 15px;
       max-width: 400px;
       width: 100%;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     }
 
     input, button {
