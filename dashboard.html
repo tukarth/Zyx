@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Meta tags otimizadas para performance -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Plataforma Inteligente com recursos avançados">
-  <title>Zyx |</title>
+  <title>Zyx | Dashboard</title>
+  
+  <!-- Fontes pré-conectadas para melhor performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Ícones otimizados -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
     :root {
       --bg: #0e0e10;
@@ -41,12 +49,18 @@
       overflow-x: hidden;
     }
 
+    /* HEADER OTIMIZADO */
     header {
       padding: 20px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--glass-border);
+      background: rgba(14, 14, 16, 0.85);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .logo {
@@ -75,6 +89,8 @@
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.3s;
+      background-size: cover;
+      background-position: center;
     }
 
     .user-avatar:hover {
@@ -86,6 +102,7 @@
       flex: 1;
     }
 
+    /* SIDEBAR COM PERFORMANCE MELHORADA */
     .sidebar {
       width: 280px;
       padding: 30px 20px;
@@ -93,6 +110,23 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      background: rgba(14, 14, 16, 0.8);
+      backdrop-filter: blur(5px);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) transparent;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 3px;
     }
 
     .nav-item {
@@ -128,6 +162,7 @@
       display: flex;
       flex-direction: column;
       gap: 25px;
+      animation: fadeIn 0.8s ease-out;
     }
 
     .dashboard-header {
@@ -135,6 +170,8 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
     .dashboard-title {
@@ -150,6 +187,7 @@
       box-shadow: var(--shadow);
       backdrop-filter: blur(20px);
       transition: transform 0.3s, box-shadow 0.3s;
+      will-change: transform, box-shadow;
     }
 
     .glass-card:hover {
@@ -162,6 +200,8 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .card-title {
@@ -269,6 +309,20 @@
 
     .table-container {
       overflow-x: auto;
+      max-height: 500px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) transparent;
+    }
+
+    .table-container::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .table-container::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 4px;
     }
 
     table {
@@ -288,6 +342,9 @@
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
     }
 
     tr:hover td {
@@ -317,6 +374,7 @@
       color: var(--danger);
     }
 
+    /* MODAL ATUALIZADO */
     .modal {
       position: fixed;
       top: 0;
@@ -331,6 +389,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s;
+      backdrop-filter: blur(5px);
     }
 
     .modal.active {
@@ -429,6 +488,7 @@
       opacity: 0;
       transition: all 0.3s;
       z-index: 1001;
+      backdrop-filter: blur(10px);
     }
 
     .toast.show {
@@ -470,6 +530,7 @@
       font-size: 1.1rem;
     }
 
+    /* RESPONSIVIDADE MELHORADA */
     @media (max-width: 1024px) {
       .sidebar {
         width: 240px;
@@ -486,6 +547,7 @@
         z-index: 100;
         background: var(--bg);
         transition: transform 0.3s;
+        width: 280px;
       }
 
       .sidebar.active {
@@ -523,7 +585,7 @@
       }
     }
 
-    /* Animations */
+    /* ANIMAÇÕES OTIMIZADAS */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -541,6 +603,19 @@
     .animate-slide {
       animation: slideIn 0.5s ease-out forwards;
     }
+
+    /* NOVO: LOADING PERFORMÁTICO */
+    .skeleton-loader {
+      background: linear-gradient(90deg, #1a1a1e 25%, #222228 50%, #1a1a1e 75%);
+      background-size: 200% 100%;
+      border-radius: var(--radius);
+      animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
   </style>
 </head>
 <body>
@@ -553,8 +628,9 @@
       <button class="secondary" id="notificationsBtn">
         <i class="fas fa-bell"></i>
       </button>
+      <!-- Avatar atualizado para ícone neutro -->
       <div class="user-avatar" id="userAvatar">
-        <span>U</span>
+        <i class="fas fa-user"></i>
       </div>
     </div>
   </header>
@@ -565,73 +641,20 @@
         <i class="fas fa-home"></i>
         <span>Dashboard</span>
       </a>
-      <!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .menu { list-style: none; padding: 0; width: 200px; background: #f4f4f4; border-radius: 5px; }
-        .menu-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #ddd; display: flex; align-items: center; }
-        .menu-item i { margin-right: 8px; }
-        .submenu { display: none; padding: 10px; background: #e0e0e0; border-radius: 5px; }
-        .nav-item { display: block; padding: 5px 0; text-decoration: none; color: #333; }
-        .nav-item:hover { color: #007bff; }
-    </style>
-</head>
-<body>
-
-    <h1>Dashboard Financeiro</h1>
-    <ul class="menu">
-        <li class="menu-item" id="analise-toggle">
-            <i class="fas fa-chart-line"></i> <span>Análises</span>
-        </li>
-        <li class="submenu" id="analise-content">
-            <a href="#" class="nav-item">Receita e Desempenho Financeiro</a>
-            <a href="#" class="nav-item">Taxa de Conversão</a>
-            <a href="#" class="nav-item">Retenção de Clientes</a>
-        </li>
-    </ul>
-
-    <script>
-        $(document).ready(function(){
-            $("#analise-toggle").click(function(){
-                $("#analise-content").slideToggle();
-            });
-        });
-    </script>
-
-</body>
-</html>
+      <a href="#" class="nav-item" onclick="mostrarDados()">
+        <i class="fas fa-database"></i>
+        <span>Dados</span>
       </a>
-      </a>
-<a href="#" class="nav-item" onclick="mostrarDados()">
-  <i class="fas fa-database"></i>
-  <span>Dados</span>
-</a>
-
-<!-- Bloco de conteúdo da aba "Dados" -->
-<div id="dados" style="display: none; padding: 20px; color: #fff;">
-  <h3>📊 Informações do Sistema</h3>
-  <ul style="list-style: none; padding-left: 0;">
-    <li>👥 Usuários ativos: <strong>2</strong></li>
-    <li>⏱ Último login: <strong> now </strong></li>
-    <li>🌐 Status do servidor: <span style="color: #1abc9c;">Online</span></li>
-    <li>🧠 Processos ativos: <strong>Firebase Auth</strong></li>
-  </ul>
-</div>
-
-<script>
-  function mostrarDados() {
-    const bloco = document.getElementById("dados");
-    bloco.style.display = bloco.style.display === "none" ? "block" : "none";
-  }
-</script>
-      </a>
+      <!-- Bloco de conteúdo da aba "Dados" -->
+      <div id="dados" style="display: none; padding: 20px; color: #fff;">
+        <h3>📊 Informações do Sistema</h3>
+        <ul style="list-style: none; padding-left: 0;">
+          <li>👥 Usuários ativos: <strong>2</strong></li>
+          <li>⏱ Último login: <strong> agora </strong></li>
+          <li>🌐 Status do servidor: <span style="color: #1abc9c;">Online</span></li>
+          <li>🧠 Processos ativos: <strong>Firebase Auth</strong></li>
+        </ul>
+      </div>
       <a href="#" class="nav-item">
         <i class="fas fa-cog"></i>
         <span>Configurações</span>
@@ -699,7 +722,7 @@
         <div class="card-header">
           <h2 class="card-title">Projetos Recentes</h2>
           <div class="card-actions">
-            <button class="card-action">
+            <button class="card-action" id="refreshProjects">
               <i class="fas fa-sync-alt"></i>
             </button>
             <button class="card-action">
@@ -708,7 +731,7 @@
           </div>
         </div>
         <div class="table-container">
-          <table>
+          <table id="projectsTable">
             <thead>
               <tr>
                 <th>Nome do Projeto</th>
@@ -718,67 +741,8 @@
                 <th>Ações</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Dashboard de Analytics</td>
-                <td>João Silva</td>
-                <td><span class="status status-active">Ativo</span></td>
-                <td>
-                  <div style="background: var(--glass); height: 6px; border-radius: 3px;">
-                    <div style="width: 75%; height: 100%; background: var(--primary); border-radius: 3px;"></div>
-                  </div>
-                </td>
-                <td>
-                  <button class="card-action">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Integração de API</td>
-                <td>Maria Souza</td>
-                <td><span class="status status-pending">Pendente</span></td>
-                <td>
-                  <div style="background: var(--glass); height: 6px; border-radius: 3px;">
-                    <div style="width: 30%; height: 100%; background: var(--warning); border-radius: 3px;"></div>
-                  </div>
-                </td>
-                <td>
-                  <button class="card-action">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Atualização de Segurança</td>
-                <td>Carlos Oliveira</td>
-                <td><span class="status status-active">Ativo</span></td>
-                <td>
-                  <div style="background: var(--glass); height: 6px; border-radius: 3px;">
-                    <div style="width: 90%; height: 100%; background: var(--success); border-radius: 3px;"></div>
-                  </div>
-                </td>
-                <td>
-                  <button class="card-action">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Migração de Banco de Dados</td>
-                <td>Ana Santos</td>
-                <td><span class="status status-inactive">Inativo</span></td>
-                <td>
-                  <div style="background: var(--glass); height: 6px; border-radius: 3px;">
-                    <div style="width: 10%; height: 100%; background: var(--danger); border-radius: 3px;"></div>
-                  </div>
-                </td>
-                <td>
-                  <button class="card-action">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-              </tr>
+            <tbody id="projectsBody">
+              <!-- Projetos serão carregados dinamicamente -->
             </tbody>
           </table>
         </div>
@@ -837,8 +801,12 @@
   <!-- Firebase Auth -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  
+  <!-- jQuery para simplificar manipulação DOM -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script>
+    // Configuração Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyAEtOJtXMIclBzLNNsEXJKqF4Rsqg_AAHs",
       authDomain: "arthur-dba38.firebaseapp.com",
@@ -852,16 +820,102 @@
     // Inicializa Firebase
     firebase.initializeApp(firebaseConfig);
 
+    // Armazenamento local para projetos
+    let projects = JSON.parse(localStorage.getItem('projects')) || [
+      {
+        name: "Dashboard de Analytics",
+        responsible: "João Silva",
+        status: "active",
+        progress: 75
+      },
+      {
+        name: "Integração de API",
+        responsible: "Maria Souza",
+        status: "pending",
+        progress: 30
+      },
+      {
+        name: "Atualização de Segurança",
+        responsible: "Carlos Oliveira",
+        status: "active",
+        progress: 90
+      },
+      {
+        name: "Migração de Banco de Dados",
+        responsible: "Ana Santos",
+        status: "inactive",
+        progress: 10
+      }
+    ];
+
+    // Função para renderizar projetos
+    function renderProjects() {
+      const projectsBody = document.getElementById('projectsBody');
+      projectsBody.innerHTML = '';
+      
+      projects.forEach(project => {
+        const row = document.createElement('tr');
+        
+        // Determina classe de status
+        let statusClass, statusText;
+        switch(project.status) {
+          case 'active':
+            statusClass = 'status-active';
+            statusText = 'Ativo';
+            break;
+          case 'pending':
+            statusClass = 'status-pending';
+            statusText = 'Pendente';
+            break;
+          case 'inactive':
+            statusClass = 'status-inactive';
+            statusText = 'Inativo';
+            break;
+        }
+        
+        // Determina cor da barra de progresso
+        let progressColor;
+        if (project.progress < 30) {
+          progressColor = 'var(--danger)';
+        } else if (project.progress < 70) {
+          progressColor = 'var(--warning)';
+        } else {
+          progressColor = 'var(--success)';
+        }
+        
+        row.innerHTML = `
+          <td>${project.name}</td>
+          <td>${project.responsible}</td>
+          <td><span class="status ${statusClass}">${statusText}</span></td>
+          <td>
+            <div style="background: var(--glass); height: 6px; border-radius: 3px;">
+              <div style="width: ${project.progress}%; height: 100%; background: ${progressColor}; border-radius: 3px;"></div>
+            </div>
+          </td>
+          <td>
+            <button class="card-action">
+              <i class="fas fa-edit"></i>
+            </button>
+          </td>
+        `;
+        
+        projectsBody.appendChild(row);
+      });
+    }
+
+    // Função para mostrar dados
+    function mostrarDados() {
+      const bloco = document.getElementById("dados");
+      bloco.style.display = bloco.style.display === "none" ? "block" : "none";
+    }
+
     // Verifica estado de autenticação
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         window.location.href = "index.html";
       } else {
-        // Atualiza avatar do usuário com a primeira letra do email
-        const userAvatar = document.getElementById('userAvatar');
-        if (user.email) {
-          userAvatar.textContent = user.email.charAt(0).toUpperCase();
-        }
+        // Renderiza projetos ao carregar
+        renderProjects();
       }
     });
 
@@ -892,14 +946,37 @@
       newProjectModal.classList.remove('active');
     });
 
+    // Criar novo projeto
     projectForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      // Simulação de envio do formulário
-      setTimeout(() => {
-        newProjectModal.classList.remove('active');
-        showToast();
-        projectForm.reset();
-      }, 1000);
+      
+      const projectName = document.getElementById('projectName').value;
+      const projectOwnerSelect = document.getElementById('projectOwner');
+      const responsibleName = projectOwnerSelect.options[projectOwnerSelect.selectedIndex].text;
+      
+      // Adiciona novo projeto
+      projects.unshift({
+        name: projectName,
+        responsible: responsibleName,
+        status: 'pending',
+        progress: 0
+      });
+      
+      // Atualiza localStorage
+      localStorage.setItem('projects', JSON.stringify(projects));
+      
+      // Atualiza tabela
+      renderProjects();
+      
+      // Fecha modal e mostra notificação
+      newProjectModal.classList.remove('active');
+      showToast();
+      projectForm.reset();
+    });
+
+    // Atualizar projetos
+    document.getElementById('refreshProjects').addEventListener('click', () => {
+      renderProjects();
     });
 
     function showToast() {
@@ -914,7 +991,7 @@
       successToast.classList.remove('show');
     });
 
-    // Menu responsivo (para telas menores)
+    // Menu responsivo
     const sidebar = document.querySelector('.sidebar');
     const userAvatar = document.getElementById('userAvatar');
 
