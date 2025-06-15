@@ -113,3 +113,6 @@
   </script>
 </body>
 </html>
+<div class="buttons">
+  <a href="SECURITY.md">Security Policy</a>
+</div>
