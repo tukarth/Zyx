@@ -1,38 +1,28 @@
-# Política de Segurança
+# Política de Qualidade
 
-## Reporte de Vulnerabilidades  
-**Canal de Contato Primário:**  
-arthur.oliveira99@cs.brazcubas.edu.br  
+Na **ZYX** e na **University**, nos comprometemos a garantir a excelência em nossas soluções tecnológicas.
 
-### Requisitos para Submissão:  
-- Descrição detalhada da vulnerabilidade  
-- Passos reproduzíveis para exploração  
-- Contexto do ambiente afetado (versões, configurações)  
-- Evidências de impacto (opcional)  
+## Compromissos
 
-### Compromissos de Resposta:  
-- Confirmação de recebimento dentro de 24 horas  
-- Análise preliminar concluída em 72 horas  
-- Correção para vulnerabilidades críticas em até 7 dias  
-- Atualizações periódicas sobre o status  
+- **Segurança**: Proteção robusta de dados e serviços.
+- **Inovação**: Melhoria contínua das plataformas.
+- **Ética**: Transparência e responsabilidade nas operações.
+- **Acessibilidade**: Processos otimizados para todos os usuários.
+- **Suporte**: Atendimento técnico especializado.
 
-## Diretrizes de Segurança  
+## Respostas a Incidentes
 
-### Para Desenvolvedores:  
-1. Implementar validação estrita de todas as entradas  
-2. Utilizar mecanismos de prevenção de injeção (SQL, XSS)  
-3. Atualizar dependências via monitoramento automatizado  
-4. Exigir autenticação multifator para acesso privilegiado  
+- **Detecção Rápida**: Monitoramento constante para identificação de incidentes.
+- **Resposta Imediata**: Planos de ação para mitigar impactos.
+- **Comunicação**: Informar usuários sobre incidentes relevantes.
 
-### Para Implementações:  
-- Executar apenas versões suportadas  
-- Auditar permissões de acesso trimestralmente  
-- Habilitar registro de logs para atividades sensíveis  
+## Gestão de Vulnerabilidades
 
-## Disposições Legais  
-- Licenciamento sob [MIT License](LICENSE)  
-- Auditorias de segurança realizadas trimestralmente  
-- Divulgação pública coordenada após correções  
+- **Avaliação Contínua**: Análise regular de sistemas para identificar falhas.
+- **Correção Proativa**: Implementação de atualizações e patches.
+- **Treinamento**: Capacitação da equipe para reconhecer e lidar com vulnerabilidades.
 
-**Última Revisão:** 15 de Junho de 2025  
-**Responsável:** Equipe de Segurança  
+## Contato
+
+Para dúvidas ou sugestões:  
+**Email:** arthur.oliveira99@cs.brazcubas.edu.br
