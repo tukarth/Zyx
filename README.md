@@ -115,4 +115,6 @@
 </html>
 <div class="buttons">
   <a href="SECURITY.md">Security Policy</a>
+  <div class="buttons">
+  <a href="https://tukarth.github.io/University/">University</a>
 </div>
