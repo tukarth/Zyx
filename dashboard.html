@@ -1,230 +1,125 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Integrado Multifuncional</title>
-    
-    <!-- Bibliotecas CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* Estilos Personalizados */
-        :root {
-            --cor-primaria: #3498db;
-            --cor-secundaria: #2ecc71;
-            --cor-fundo: #f4f6f7;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema Integrado Multifuncional</title>
 
-        body {
-            background-color: var(--cor-fundo);
-            font-family: 'Arial', sans-serif;
-        }
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        .dashboard-container {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            height: 100vh;
-        }
+  <style>
+    :root {
+      --cor-primaria: #3498db;
+      --cor-secundaria: #2ecc71;
+      --cor-fundo: #f4f6f7;
+    }
 
-        .sidebar {
-            background-color: #2c3e50;
-            color: white;
-        }
+    body {
+      background-color: var(--cor-fundo);
+      font-family: 'Arial', sans-serif;
+      transition: all 0.3s ease;
+    }
 
-        .content-area {
-            overflow-y: auto;
-        }
+    .modo-escuro {
+      background-color: #121212 !important;
+      color: #f4f4f4 !important;
+    }
 
-        /* Estilos específicos para cada módulo */
-        .card-dashboard {
-            transition: transform 0.3s ease;
-        }
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      height: 100vh;
+    }
 
-        .card-dashboard:hover {
-            transform: scale(1.05);
-        }
+    .sidebar {
+      background-color: #2c3e50;
+      color: white;
+    }
 
-        .grafico {
-            min-height: 300px;
-        }
+    .card-dashboard:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
 
-        .tabela-responsiva {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        /* Animações */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .animate-fade {
-            animation: fadeIn 0.5s ease-in;
-        }
-    </style>
+    .grafico {
+      min-height: 300px;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="dashboard-container">
-        <!-- Sidebar Principal -->
-        <aside class="sidebar">
-            <div class="logo-container text-center py-4">
-                <img src="logo.png" alt="Logo Sistema" class="img-fluid">
-            </div>
+  <div class="dashboard-container">
+    <aside class="sidebar p-3">
+      <h4 class="text-center">Menu</h4>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a href="#" class="nav-link text-white">Dashboard</a></li>
+        <li class="nav-item"><a href="#" class="nav-link text-white">Projetos</a></li>
+      </ul>
+    </aside>
 
-            <nav class="menu-navegacao">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active">
-                            <i class="fas fa-home"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#administrativo" class="nav-link">
-                            <i class="fas fa-building"></i> Administrativo
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#ecommerce" class="nav-link">
-                            <i class="fas fa-shopping-cart"></i> E-commerce
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#projetos" class="nav-link">
-                            <i class="fas fa-project-diagram"></i> Projetos
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#educacional" class="nav-link">
-                            <i class="fas fa-graduation-cap"></i> Educacional
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+    <main class="p-4">
+      <header class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Painel Principal</h2>
+        <div>
+          <button class="btn btn-outline-dark me-2" id="botao-escuro">🌙 Modo Escuro</button>
+          <button class="btn btn-primary">🔔 Notificações</button>
+        </div>
+      </header>
 
-        <!-- Área de Conteúdo Principal -->
-        <main class="content-area">
-            <!-- Cabeçalho -->
-            <header class="bg-white shadow-sm py-3 px-4 d-flex justify-content-between align-items-center">
-                <h1 class="h4 mb-0">Painel Principal</h1>
-                
-                <div class="header-actions">
-                    <button class="btn btn-outline-primary me-2">
-                        <i class="fas fa-bell"></i>
-                        <span class="badge bg-danger">4</span>
-                    </button>
-                    
-                    <div class="dropdown">
-                        <button class="btn btn-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                            <img src="avatar.jpg" class="rounded-circle me-2" width="30" height="30">
-                            João Silva
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Configurações</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#">Sair</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </header>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card card-dashboard p-3 mb-3">
+            <h5>Vendas Totais</h5>
+            <h3 id="vendasValor" class="text-success">R$ 12.500</h3>
+            <small class="text-muted">Últimos 30 dias</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-dashboard p-3 mb-3">
+            <h5>Novos Clientes</h5>
+            <h3 id="clientesValor" class="text-primary">210</h3>
+            <small class="text-muted">Este mês</small>
+          </div>
+        </div>
+      </div>
 
-            <!-- Conteúdo Dinâmico -->
-            <div id="content-wrapper" class="p-4">
-                <!-- Dashboard Principal -->
-                <section id="dashboard" class="row">
-                    <div class="col-md-3">
-                        <div class="card card-dashboard mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Vendas Totais</h5>
-                                <h3 class="text-success">R$ 125.456,78</h3>
-                                <small class="text-muted">Últimos 30 dias</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-dashboard mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Novos Clientes</h5>
-                                <h3 class="text-primary">256</h3>
-                                <small class="text-muted">Este mês</small>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Mais cartões de dashboard -->
-                </section>
+      <div class="card mt-4">
+        <div class="card-header">Gráfico de Vendas</div>
+        <div class="card-body">
+          <canvas id="grafico-vendas"></canvas>
+        </div>
+      </div>
+    </main>
+  </div>
 
-                <!-- Gráficos -->
-                <section class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">Vendas Mensais</div>
-                            <div class="card-body grafico">
-                                <!-- Espaço para gráfico -->
-                            </div>
-                        </div>
-                    </div>
-                </section>
+  <script>
+    const ctx = document.getElementById('grafico-vendas');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Fev', 'Mar', 'Abr'],
+        datasets: [{
+          label: 'Vendas R$',
+          data: [4000, 6000, 8000, 12000],
+          backgroundColor: '#3498db'
+        }]
+      }
+    });
 
-                <!-- Tabelas -->
-                <section class="row mt-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">Últimas Transações</div>
-                            <div class="card-body tabela-responsiva">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Cliente</th>
-                                            <th>Valor</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Linhas de transações -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
-    </div>
+    // Alerta baseado em meta
+    const novosClientes = parseInt(document.getElementById('clientesValor').textContent);
+    if (novosClientes > 200) {
+      alert('🎉 Parabéns! Meta de novos clientes atingida!');
+    }
 
-    <!-- Bibliotecas JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // Funções de interatividade
-        document.addEventListener('DOMContentLoaded', () => {
-            // Lógicas de navegação
-            const navegacao = {
-                inicializar() {
-                    this.configurarEventos();
-                },
-                configurarEventos() {
-                    const links = document.querySelectorAll('.nav-link');
-                    links.forEach(link => {
-                        link.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            const secaoAlvo = link.getAttribute('href').substring(1);
-                            this.carregarSecao(secaoAlvo);
-                        });
-                    });
-                },
-                carregarSecao(secao) {
-                    // Lógica de carregamento dinâmico
-                    console.log(`Carregando seção: ${secao}`);
-                }
-            };
+    // Toggle modo escuro
+    document.getElementById('botao-escuro').addEventListener('click', () => {
+      document.body.classList.toggle('modo-escuro');
+    });
+  </script>
 
-            navegacao.inicializar();
-        });
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
