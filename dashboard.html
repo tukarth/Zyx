@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <style>
     :root {
@@ -64,6 +65,7 @@
       display: flex;
       align-items: center;
       gap: 20px;
+      position: relative;
     }
 
     .user-avatar {
@@ -929,6 +931,102 @@
       font-weight: 600;
       margin-left: 10px;
     }
+
+    .dropdown {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: var(--bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 280px;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition: all 0.3s;
+    }
+
+    .dropdown.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .dropdown-item:hover {
+      background: var(--glass);
+    }
+
+    .chart-container {
+      height: 300px;
+      margin-top: 20px;
+    }
+
+    .notification-item {
+      padding: 12px 15px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      gap: 10px;
+      transition: var(--transition);
+    }
+
+    .notification-item:hover {
+      background: var(--glass);
+    }
+
+    .notification-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(74, 107, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-time {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .notification-unread {
+      background: rgba(74, 107, 255, 0.15);
+    }
+
+    .notification-unread .notification-icon {
+      background: rgba(74, 107, 255, 0.2);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--danger);
+      color: white;
+      font-size: 0.7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
@@ -940,6 +1038,7 @@
     <div class="user-menu">
       <button class="secondary" id="notificationsBtn">
         <i class="fas fa-bell"></i>
+        <span class="notification-badge">3</span>
       </button>
       <div class="user-avatar" id="userAvatar">
         <i class="fas fa-crown"></i>
@@ -965,7 +1064,7 @@
         <i class="fas fa-users"></i>
         <span>Usuários</span>
       </a>
-      <a href="#" class="nav-item">
+      <a href="#" class="nav-item" onclick="showSection('relatorios')">
         <i class="fas fa-file-alt"></i>
         <span>Relatórios</span>
       </a>
@@ -1038,166 +1137,4 @@
             <table id="projectsTable">
               <thead>
                 <tr>
-                  <th>Nome do Projeto</th>
-                  <th>Responsável</th>
-                  <th>Status</th>
-                  <th>Progresso</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody id="projectsBody">
-                <!-- Projetos serão carregados dinamicamente -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dados Section -->
-      <div id="dados" class="tab-content" style="display: none;">
-        <div class="card-header">
-          <h2 class="card-title">📊 Informações do Sistema</h2>
-        </div>
-        <div class="glass-card">
-          <ul style="list-style: none; padding-left: 0;">
-            <li style="padding: 10px 0; border-bottom: 1px solid var(--glass-border);">👥 Usuários ativos: <strong>2</strong></li>
-            <li style="padding: 10px 0; border-bottom: 1px solid var(--glass-border);">⏱ Último login: <strong>agora</strong></li>
-            <li style="padding: 10px 0; border-bottom: 1px solid var(--glass-border);">🌐 Status do servidor: <span style="color: #1abc9c;">Online</span></li>
-            <li style="padding: 10px 0;">🧠 Processos ativos: <strong>Firebase Auth</strong></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Configurações Section -->
-      <div id="configuracoes" class="tab-content" style="display: none;">
-        <div class="card-header">
-          <h2 class="card-title">Configurações do Sistema</h2>
-        </div>
-        
-        <div class="glass-card">
-          <div class="tab-nav">
-            <button class="tab-btn active" onclick="openTab(event, 'config-geral')">Geral</button>
-            <button class="tab-btn" onclick="openTab(event, 'config-seguranca')">Segurança</button>
-            <button class="tab-btn" onclick="openTab(event, 'config-notificacoes')">Notificações</button>
-            <button class="tab-btn" onclick="openTab(event, 'config-aparencia')">Aparência</button>
-          </div>
-          
-          <div id="config-geral" class="tab-content active">
-            <div class="form-group">
-              <label for="nomeSistema">Nome do Sistema</label>
-              <input type="text" id="nomeSistema" value="Zyx Dashboard Premium">
-            </div>
-            
-            <div class="form-group">
-              <label for="timezone">Fuso Horário</label>
-              <select id="timezone">
-                <option>America/Sao_Paulo</option>
-                <option>UTC</option>
-                <option>America/New_York</option>
-              </select>
-            </div>
-            
-            <div class="switch-container">
-              <div class="switch-label">
-                <span>Manutenção do Sistema</span>
-                <span class="description">Desative o acesso de usuários durante atualizações</span>
-              </div>
-              <label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
-              </label>
-            </div>
-            
-            <div class="switch-container">
-              <div class="switch-label">
-                <span>Registro de Atividades</span>
-                <span class="description">Registre todas as ações dos usuários</span>
-              </div>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider"></span>
-              </label>
-            </div>
-          </div>
-          
-          <div id="config-seguranca" class="tab-content" style="display: none;">
-            <div class="switch-container">
-              <div class="switch-label">
-                <span>Autenticação em Dois Fatores</span>
-                <span class="description">Exija verificação adicional para login</span>
-              </div>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider"></span>
-              </label>
-            </div>
-            
-            <div class="switch-container">
-              <div class="switch-label">
-                <span>Autenticação Biométrica</span>
-                <span class="description">Permitir login com impressão digital ou reconhecimento facial</span>
-              </div>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider"></span>
-              </label>
-            </div>
-            
-            <div class="form-group">
-              <label for="sessionTimeout">Tempo de Sessão (minutos)</label>
-              <input type="number" id="sessionTimeout" value="30" min="5" max="120">
-            </div>
-          </div>
-          
-          <div id="config-notificacoes" class="tab-content" style="display: none;">
-            <div class="switch-container">
-              <div class="switch-label">
-                <span>Notificações por Email</span>
-                <span class="description">Receba alertas importantes por email</span>
-              </div>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider"></span>
-              </label>
-            </div>
-            
-            <div class="switch-container">
-              <div class="switch-label">
-                <span>Notificações Push</span>
-                <span class="description">Receba alertas em tempo real no dispositivo</span>
-              </div>
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider"></span>
-              </label>
-            </div>
-            
-            <div class="form-group">
-              <label>Frequência de Relatórios</label>
-              <select>
-                <option>Diariamente</option>
-                <option>Semanalmente</option>
-                <option>Mensalmente</option>
-              </select>
-            </div>
-          </div>
-          
-          <div id="config-aparencia" class="tab-content" style="display: none;">
-            <div class="form-group">
-              <label>Tema da Interface</label>
-              <select>
-                <option>Escuro (Padrão)</option>
-                <option>Claro</option>
-                <option>Azul Escuro</option>
-                <option>Verde Escuro</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label>Densidade de Informação</label>
-              <select>
-                <option>Confortável</option>
-                <option>Compacto</option>
-                <option>Expandido</option>
-              </select>
-           
+                  <th
