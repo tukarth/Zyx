@@ -1,259 +1,1009 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Painel Profissional</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  <!-- Meta tags otimizadas para performance -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plataforma Inteligente com recursos avançados">
+  <title>Zyx | Dashboard</title>
+  
+  <!-- Fontes pré-conectadas para melhor performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Ícones otimizados -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
+    :root {
+      --bg: #0e0e10;
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --primary: #4a6bff;
+      --primary-hover: #3a5bef;
+      --text: #f0f0f0;
+      --text-light: #d1d1d1;
+      --muted: #999;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --danger: #e74c3c;
+      --radius: 12px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f8f9fa;
-      transition: background 0.4s, color 0.4s;
-    }
-
-    .modo-escuro {
-      background-color: #121212 !important;
-      color: #e4e4e4 !important;
-    }
-
-    .sidebar {
-      background-color: #2c3e50;
+      background-color: var(--bg);
+      background-image: radial-gradient(circle at 25% 25%, rgba(74, 107, 255, 0.1) 0%, transparent 50%);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      padding-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
     }
 
-    .sidebar .nav-link {
-      color: white;
+    /* HEADER OTIMIZADO */
+    header {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--glass-border);
+      background: rgba(14, 14, 16, 0.85);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    .sidebar .nav-link.active {
-      background-color: #34495e;
-    }
-
-    .card-dashboard {
-      transition: transform 0.3s ease;
-    }
-
-    .card-dashboard:hover {
-      transform: scale(1.02);
-    }
-
-    .section-content {
-      display: none;
-    }
-
-    .section-content.active {
-      display: block;
-      animation: fadeIn 0.4s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
 
     .user-avatar {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      object-fit: cover;
-      margin-right: 10px;
+      background-color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .user-avatar:hover {
+      transform: scale(1.05);
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+    }
+
+    /* SIDEBAR COM PERFORMANCE MELHORADA */
+    .sidebar {
+      width: 280px;
+      padding: 30px 20px;
+      border-right: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(14, 14, 16, 0.8);
+      backdrop-filter: blur(5px);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) transparent;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 3px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      color: var(--text-light);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: var(--glass);
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .nav-item i {
+      font-size: 1.1rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .dashboard-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .glass-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s, box-shadow 0.3s;
+      will-change: transform, box-shadow;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .card-action {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .card-action:hover {
+      color: var(--primary);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .stat-change {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .positive {
+      color: var(--success);
+    }
+
+    .negative {
+      color: var(--danger);
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    button.secondary {
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+    }
+
+    button.secondary:hover {
+      background: var(--glass);
+    }
+
+    button.danger {
+      background: var(--danger);
+    }
+
+    button.danger:hover {
+      background: #c0392b;
+    }
+
+    .btn-icon {
+      font-size: 1.1rem;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      max-height: 500px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) transparent;
+    }
+
+    .table-container::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .table-container::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+    }
+
+    tr:hover td {
+      background: var(--glass);
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .status-active {
+      background: rgba(46, 204, 113, 0.1);
+      color: var(--success);
+    }
+
+    .status-pending {
+      background: rgba(243, 156, 18, 0.1);
+      color: var(--warning);
+    }
+
+    .status-inactive {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--danger);
+    }
+
+    /* MODAL ATUALIZADO */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      background: var(--bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: var(--shadow);
+      transform: translateY(20px);
+      transition: transform 0.3s;
+    }
+
+    .modal.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: var(--shadow);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1001;
+      backdrop-filter: blur(10px);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      font-size: 1.3rem;
+    }
+
+    .toast-success .toast-icon {
+      color: var(--success);
+    }
+
+    .toast-error .toast-icon {
+      color: var(--danger);
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .toast-message {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    /* RESPONSIVIDADE MELHORADA */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 240px;
+        padding: 20px 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        bottom: 0;
+        z-index: 100;
+        background: var(--bg);
+        transition: transform 0.3s;
+        width: 280px;
+      }
+
+      .sidebar.active {
+        transform: translateX(280px);
+      }
+
+      .main-content {
+        padding: 20px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      .dashboard-title {
+        font-size: 1.5rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-actions {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    /* ANIMAÇÕES OTIMIZADAS */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .animate-fade {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    .animate-slide {
+      animation: slideIn 0.5s ease-out forwards;
+    }
+
+    /* NOVO: LOADING PERFORMÁTICO */
+    .skeleton-loader {
+      background: linear-gradient(90deg, #1a1a1e 25%, #222228 50%, #1a1a1e 75%);
+      background-size: 200% 100%;
+      border-radius: var(--radius);
+      animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
   </style>
 </head>
 <body>
-  <div class="d-flex">
-    <nav class="sidebar d-flex flex-column p-3 text-white" style="width: 250px;">
-      <h4 class="text-white text-center mb-4">Painel</h4>
-      <ul class="nav nav-pills flex-column mb-auto" id="menuLinks">
-        <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-home me-2"></i>Dashboard</a></li>
-        <li><a href="#" class="nav-link" data-section="projetos"><i class="fas fa-tasks me-2"></i>Projetos</a></li>
-        <li><a href="#" class="nav-link" data-section="vendas"><i class="fas fa-chart-line me-2"></i>Vendas</a></li>
-        <li><a href="#" class="nav-link" data-section="usuarios"><i class="fas fa-users me-2"></i>Usuários</a></li>
-        <li><a href="#" class="nav-link" data-section="configuracoes"><i class="fas fa-cog me-2"></i>Configurações</a></li>
-      </ul>
-    </nav>
-    <main class="flex-grow-1 p-4" id="mainContent">
-        <!-- Dashboard -->
-  <section id="dashboard" class="section-content active">
-    <h3>Dashboard</h3>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card card-dashboard p-3 mb-3">
-          <h5>Total de Vendas</h5>
-          <h3 id="vendasValor" class="text-success">R$ 25.000</h3>
-          <small class="text-muted">Últimos 30 dias</small>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card card-dashboard p-3 mb-3">
-          <h5>Novos Clientes</h5>
-          <h3 id="clientesValor" class="text-primary">230</h3>
-          <small class="text-muted">Este mês</small>
-        </div>
+  <header>
+    <div class="logo">
+      <i class="fas fa-brain"></i>
+      <span>Zyx</span>
+    </div>
+    <div class="user-menu">
+      <button class="secondary" id="notificationsBtn">
+        <i class="fas fa-bell"></i>
+      </button>
+      <!-- Avatar atualizado para ícone neutro -->
+      <div class="user-avatar" id="userAvatar">
+        <i class="fas fa-user"></i>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header">Gráfico de Vendas</div>
-      <div class="card-body">
-        <canvas id="grafico-vendas"></canvas>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <a href="#" class="nav-item active">
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" onclick="mostrarDados()">
+        <i class="fas fa-database"></i>
+        <span>Dados</span>
+      </a>
+      <!-- Bloco de conteúdo da aba "Dados" -->
+      <div id="dados" style="display: none; padding: 20px; color: #fff;">
+        <h3>📊 Informações do Sistema</h3>
+        <ul style="list-style: none; padding-left: 0;">
+          <li>👥 Usuários ativos: <strong>2</strong></li>
+          <li>⏱ Último login: <strong> agora </strong></li>
+          <li>🌐 Status do servidor: <span style="color: #1abc9c;">Online</span></li>
+          <li>🧠 Processos ativos: <strong>Firebase Auth</strong></li>
+        </ul>
       </div>
-    </div>
-  </section>
+      <a href="#" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Configurações</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-users"></i>
+        <span>Usuários</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-file-alt"></i>
+        <span>Relatórios</span>
+      </a>
+      <div style="flex: 1;"></div>
+      <button class="secondary" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Sair</span>
+      </button>
+    </aside>
 
-  <!-- Projetos -->
-  <section id="projetos" class="section-content">
-    <h3>Projetos em Andamento</h3>
-    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between">
-        Site Institucional <span class="badge bg-success">Finalizado</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between">
-        Plataforma EAD <span class="badge bg-warning text-dark">Em andamento</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between">
-        Integração com API <span class="badge bg-danger">Pendente</span>
-      </li>
-    </ul>
-  </section>
-
-  <!-- Vendas -->
-  <section id="vendas" class="section-content">
-    <h3>Tabela de Vendas</h3>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Cliente</th>
-          <th>Valor</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>#101</td>
-          <td>Maria Oliveira</td>
-          <td>R$ 1.200</td>
-          <td><span class="badge bg-success">Concluído</span></td>
-        </tr>
-        <tr>
-          <td>#102</td>
-          <td>João Pedro</td>
-          <td>R$ 950</td>
-          <td><span class="badge bg-secondary">Pendente</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="card mt-4">
-      <div class="card-header">Histórico</div>
-      <div class="card-body">
-        <canvas id="grafico-linha"></canvas>
+    <main class="main-content">
+      <div class="dashboard-header">
+        <h1 class="dashboard-title">Bem-vindo de volta!</h1>
+        <button id="newProjectBtn">
+          <i class="fas fa-plus"></i>
+          <span>Novo Projeto</span>
+        </button>
       </div>
-    </div>
-  </section>
 
-  <!-- Usuários -->
-  <section id="usuarios" class="section-content">
-    <h3>Usuários Ativos</h3>
-    <div class="list-group">
-      <div class="list-group-item d-flex align-items-center">
-        <img src="https://i.pravatar.cc/40?img=1" class="user-avatar" />
-        <div>
-          <strong>Camila Mendes</strong><br />
-          <small>Administradora</small>
+      <div class="stats-grid">
+        <div class="glass-card stat-card animate-slide" style="animation-delay: 0.1s;">
+          <div class="stat-value">1,248</div>
+          <div class="stat-label">Visitas Hoje</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>12% em relação a ontem</span>
+          </div>
+        </div>
+        <div class="glass-card stat-card animate-slide" style="animation-delay: 0.2s;">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Taxa de Conversão</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>5% em relação ao mês passado</span>
+          </div>
+        </div>
+        <div class="glass-card stat-card animate-slide" style="animation-delay: 0.3s;">
+          <div class="stat-value">R$ 50.000</div>
+          <div class="stat-label">Receita Mensal</div>
+          <div class="stat-change negative">
+            <i class="fas fa-arrow-down"></i>
+            <span>3% em relação ao mês passado</span>
+          </div>
+        </div>
+        <div class="glass-card stat-card animate-slide" style="animation-delay: 0.4s;">
+          <div class="stat-value">356</div>
+          <div class="stat-label">Novos Clientes</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>8% em relação ao mês passado</span>
+          </div>
         </div>
       </div>
-      <div class="list-group-item d-flex align-items-center">
-        <img src="https://i.pravatar.cc/40?img=2" class="user-avatar" />
-        <div>
-          <strong>Lucas Lima</strong><br />
-          <small>Marketing</small>
+
+      <div class="glass-card animate-fade" style="animation-delay: 0.5s;">
+        <div class="card-header">
+          <h2 class="card-title">Projetos Recentes</h2>
+          <div class="card-actions">
+            <button class="card-action" id="refreshProjects">
+              <i class="fas fa-sync-alt"></i>
+            </button>
+            <button class="card-action">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
+        <div class="table-container">
+          <table id="projectsTable">
+            <thead>
+              <tr>
+                <th>Nome do Projeto</th>
+                <th>Responsável</th>
+                <th>Status</th>
+                <th>Progresso</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="projectsBody">
+              <!-- Projetos serão carregados dinamicamente -->
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Configurações -->
-  <section id="configuracoes" class="section-content">
-    <h3>Configurações do Sistema</h3>
-    <button class="btn btn-dark me-2" id="modoEscuro">Ativar/Desativar Modo Escuro 🌙</button>
-    <button class="btn btn-warning" id="simularNotificacao">Simular Notificação 🔔</button>
-  </section>
     </main>
-</div>
+  </div>
 
-<script>
-  // Navegação entre seções
-  const links = document.querySelectorAll('#menuLinks .nav-link');
-  const sections = document.querySelectorAll('.section-content');
+  <!-- Modal de Novo Projeto -->
+  <div class="modal" id="newProjectModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Criar Novo Projeto</h3>
+        <button class="modal-close" id="closeModalBtn">&times;</button>
+      </div>
+      <form id="projectForm">
+        <div class="form-group">
+          <label for="projectName">Nome do Projeto</label>
+          <input type="text" id="projectName" placeholder="Digite o nome do projeto" required>
+        </div>
+        <div class="form-group">
+          <label for="projectDescription">Descrição</label>
+          <textarea id="projectDescription" rows="3" placeholder="Descreva o projeto"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="projectOwner">Responsável</label>
+          <select id="projectOwner" required>
+            <option value="">Selecione um responsável</option>
+            <option value="1">João Silva</option>
+            <option value="2">Maria Souza</option>
+            <option value="3">Carlos Oliveira</option>
+            <option value="4">Ana Santos</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="projectDeadline">Prazo</label>
+          <input type="date" id="projectDeadline" required>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="secondary" id="cancelProjectBtn">Cancelar</button>
+          <button type="submit">Criar Projeto</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-  links.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const section = link.getAttribute('data-section');
+  <!-- Toast Notification -->
+  <div class="toast toast-success" id="successToast">
+    <i class="fas fa-check-circle toast-icon"></i>
+    <div class="toast-content">
+      <div class="toast-title">Sucesso!</div>
+      <div class="toast-message">Projeto criado com sucesso.</div>
+    </div>
+    <button class="toast-close">&times;</button>
+  </div>
 
-      links.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  
+  <!-- jQuery para simplificar manipulação DOM -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-      sections.forEach(s => {
-        s.classList.remove('active');
-        if (s.id === section) s.classList.add('active');
+  <script>
+    // Configuração Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAEtOJtXMIclBzLNNsEXJKqF4Rsqg_AAHs",
+      authDomain: "arthur-dba38.firebaseapp.com",
+      projectId: "arthur-dba38",
+      storageBucket: "arthur-dba38.firebasestorage.app",
+      messagingSenderId: "226852614993",
+      appId: "1:226852614993:web:5f60769150d33a50e69970",
+      measurementId: "G-WSNY5JJS7Q"
+    };
+
+    // Inicializa Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Armazenamento local para projetos
+    let projects = JSON.parse(localStorage.getItem('projects')) || [
+      {
+        name: "Dashboard de Analytics",
+        responsible: "João Silva",
+        status: "active",
+        progress: 75
+      },
+      {
+        name: "Integração de API",
+        responsible: "Maria Souza",
+        status: "pending",
+        progress: 30
+      },
+      {
+        name: "Atualização de Segurança",
+        responsible: "Carlos Oliveira",
+        status: "active",
+        progress: 90
+      },
+      {
+        name: "Migração de Banco de Dados",
+        responsible: "Ana Santos",
+        status: "inactive",
+        progress: 10
+      }
+    ];
+
+    // Função para renderizar projetos
+    function renderProjects() {
+      const projectsBody = document.getElementById('projectsBody');
+      projectsBody.innerHTML = '';
+      
+      projects.forEach(project => {
+        const row = document.createElement('tr');
+        
+        // Determina classe de status
+        let statusClass, statusText;
+        switch(project.status) {
+          case 'active':
+            statusClass = 'status-active';
+            statusText = 'Ativo';
+            break;
+          case 'pending':
+            statusClass = 'status-pending';
+            statusText = 'Pendente';
+            break;
+          case 'inactive':
+            statusClass = 'status-inactive';
+            statusText = 'Inativo';
+            break;
+        }
+        
+        // Determina cor da barra de progresso
+        let progressColor;
+        if (project.progress < 30) {
+          progressColor = 'var(--danger)';
+        } else if (project.progress < 70) {
+          progressColor = 'var(--warning)';
+        } else {
+          progressColor = 'var(--success)';
+        }
+        
+        row.innerHTML = `
+          <td>${project.name}</td>
+          <td>${project.responsible}</td>
+          <td><span class="status ${statusClass}">${statusText}</span></td>
+          <td>
+            <div style="background: var(--glass); height: 6px; border-radius: 3px;">
+              <div style="width: ${project.progress}%; height: 100%; background: ${progressColor}; border-radius: 3px;"></div>
+            </div>
+          </td>
+          <td>
+            <button class="card-action">
+              <i class="fas fa-edit"></i>
+            </button>
+          </td>
+        `;
+        
+        projectsBody.appendChild(row);
+      });
+    }
+
+    // Função para mostrar dados
+    function mostrarDados() {
+      const bloco = document.getElementById("dados");
+      bloco.style.display = bloco.style.display === "none" ? "block" : "none";
+    }
+
+    // Verifica estado de autenticação
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = "index.html";
+      } else {
+        // Renderiza projetos ao carregar
+        renderProjects();
+      }
+    });
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "index.html";
       });
     });
-  });
 
-  // Gráfico de Barras (Dashboard)
-  new Chart(document.getElementById('grafico-vendas'), {
-    type: 'bar',
-    data: {
-      labels: ['Jan', 'Fev', 'Mar', 'Abr'],
-      datasets: [{
-        label: 'Vendas',
-        data: [5000, 8000, 12000, 25000],
-        backgroundColor: '#3498db'
-      }]
-    },
-    options: { responsive: true }
-  });
+    // Modal de Novo Projeto
+    const newProjectBtn = document.getElementById('newProjectBtn');
+    const newProjectModal = document.getElementById('newProjectModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelProjectBtn = document.getElementById('cancelProjectBtn');
+    const projectForm = document.getElementById('projectForm');
+    const successToast = document.getElementById('successToast');
 
-  // Gráfico de Linha (Vendas)
-  new Chart(document.getElementById('grafico-linha'), {
-    type: 'line',
-    data: {
-      labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-      datasets: [{
-        label: 'Receita',
-        data: [2200, 3000, 1800, 4200],
-        borderColor: '#2ecc71',
-        fill: false
-      }]
-    },
-    options: { responsive: true }
-  });
+    newProjectBtn.addEventListener('click', () => {
+      newProjectModal.classList.add('active');
+    });
 
-  // Alerta de meta de clientes
-  const metaClientes = parseInt(document.getElementById('clientesValor').textContent);
-  if (metaClientes >= 200) {
-    setTimeout(() => {
-      alert('🎉 Parabéns! A meta de novos clientes foi atingida.');
-    }, 800);
-  }
+    closeModalBtn.addEventListener('click', () => {
+      newProjectModal.classList.remove('active');
+    });
 
-  // Modo escuro
-  document.getElementById('modoEscuro').addEventListener('click', () => {
-    document.body.classList.toggle('modo-escuro');
-  });
+    cancelProjectBtn.addEventListener('click', () => {
+      newProjectModal.classList.remove('active');
+    });
 
-  // Simular notificação
-  document.getElementById('simularNotificacao').addEventListener('click', () => {
-    alert('🔔 Nova venda registrada com sucesso!');
-  });
-</script>
+    // Criar novo projeto
+    projectForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const projectName = document.getElementById('projectName').value;
+      const projectOwnerSelect = document.getElementById('projectOwner');
+      const responsibleName = projectOwnerSelect.options[projectOwnerSelect.selectedIndex].text;
+      
+      // Adiciona novo projeto
+      projects.unshift({
+        name: projectName,
+        responsible: responsibleName,
+        status: 'pending',
+        progress: 0
+      });
+      
+      // Atualiza localStorage
+      localStorage.setItem('projects', JSON.stringify(projects));
+      
+      // Atualiza tabela
+      renderProjects();
+      
+      // Fecha modal e mostra notificação
+      newProjectModal.classList.remove('active');
+      showToast();
+      projectForm.reset();
+    });
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    // Atualizar projetos
+    document.getElementById('refreshProjects').addEventListener('click', () => {
+      renderProjects();
+    });
+
+    function showToast() {
+      successToast.classList.add('show');
+      setTimeout(() => {
+        successToast.classList.remove('show');
+      }, 5000);
+    }
+
+    // Fecha toast ao clicar no botão de fechar
+    document.querySelector('.toast-close').addEventListener('click', () => {
+      successToast.classList.remove('show');
+    });
+
+    // Menu responsivo
+    const sidebar = document.querySelector('.sidebar');
+    const userAvatar = document.getElementById('userAvatar');
+
+    userAvatar.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        sidebar.classList.toggle('active');
+      }
+    });
+
+    // Fecha o menu ao clicar fora (para telas menores)
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768 && !sidebar.contains(e.target) && e.target !== userAvatar) {
+        sidebar.classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>
+
+ 
+
+
+<footer>
+   @tukarth - Todos os direitos reservados. &copy; 2025
+  </footer>
