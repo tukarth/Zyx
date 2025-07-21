@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Dashboard Zyx - Plataforma Inteligente">
-  <title>Zyx | Dashboard</title>
+  <meta name="description" content="Zyx Premium - Dashboard Inteligente com IA">
+  <title>Zyx Premium | Dashboard</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
@@ -18,20 +18,32 @@
     }
 
     :root {
-      --bg: #0a0a0b;
-      --surface: rgba(255, 255, 255, 0.05);
-      --border: rgba(255, 255, 255, 0.1);
-      --primary: #4a6bff;
-      --text: #f1f1f1;
-      --text-dim: #a1a1a1;
-      --success: #22c55e;
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111117;
+      --surface: rgba(255, 255, 255, 0.03);
+      --surface-hover: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.08);
+      --primary: #6366f1;
+      --primary-glow: #6366f1;
+      --secondary: #8b5cf6;
+      --accent: #06b6d4;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+      --text-muted: #64748b;
+      --success: #10b981;
       --warning: #f59e0b;
       --danger: #ef4444;
+      --premium: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gold: #ffd700;
     }
 
     body {
       font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--bg);
+      background: var(--bg-primary);
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 90%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
@@ -39,80 +51,170 @@
 
     .app {
       display: grid;
-      grid-template: auto 1fr / 260px 1fr;
+      grid-template: auto 1fr / 280px 1fr;
       min-height: 100vh;
     }
 
-    /* Header */
+    /* Premium Header */
     .header {
       grid-column: 1 / -1;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: var(--surface);
+      background: rgba(17, 17, 23, 0.9);
       border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-weight: 600;
-      font-size: 1.2rem;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.3rem;
     }
 
-    .user-menu {
+    .logo i {
+      background: var(--premium);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.5rem;
+    }
+
+    .premium-badge {
+      background: var(--premium);
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
       display: flex;
       align-items: center;
       gap: 1rem;
     }
 
-    .btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.2s;
+    .search-bar {
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
     }
 
-    .btn:hover {
-      background: #3a5bef;
+    .search-input {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      padding: 0.5rem 1rem 0.5rem 2.5rem;
+      color: var(--text);
+      width: 300px;
+      transition: all 0.3s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      width: 400px;
+      background: var(--surface-hover);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .notification-center {
+      position: relative;
+    }
+
+    .notification-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .notification-btn:hover {
+      background: var(--surface-hover);
       transform: translateY(-1px);
     }
 
-    .btn-ghost {
-      background: transparent;
-      border: 1px solid var(--border);
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--danger);
+      color: white;
+      font-size: 0.7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s infinite;
     }
 
-    .btn-ghost:hover {
-      background: var(--surface);
-    }
-
-    .avatar {
-      width: 36px;
-      height: 36px;
-      background: var(--primary);
+    .avatar-premium {
+      width: 40px;
+      height: 40px;
+      background: var(--premium);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      position: relative;
+      transition: all 0.3s;
     }
 
-    /* Sidebar */
+    .avatar-premium::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: var(--premium);
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .avatar-premium:hover::after {
+      opacity: 0.3;
+    }
+
+    /* Enhanced Sidebar */
     .sidebar {
       padding: 2rem 1rem;
-      background: var(--surface);
+      background: rgba(17, 17, 23, 0.8);
       border-right: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-weight: 600;
     }
 
     .nav-item {
@@ -122,15 +224,29 @@
       padding: 0.75rem;
       color: var(--text-dim);
       text-decoration: none;
-      border-radius: 8px;
+      border-radius: 12px;
       margin-bottom: 0.25rem;
-      transition: all 0.2s;
+      transition: all 0.3s;
+      position: relative;
     }
 
     .nav-item:hover,
     .nav-item.active {
-      background: rgba(74, 107, 255, 0.1);
+      background: var(--surface-hover);
       color: var(--primary);
+      transform: translateX(5px);
+    }
+
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 2px;
     }
 
     .nav-item i {
@@ -138,74 +254,417 @@
       text-align: center;
     }
 
-    /* Main Content */
+    .nav-badge {
+      background: var(--primary);
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      margin-left: auto;
+    }
+
+    /* AI Assistant Widget */
+    .ai-widget {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 300px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      transform: translateY(100px);
+      opacity: 0;
+      animation: slideUp 0.8s ease-out 1s forwards;
+      z-index: 200;
+    }
+
+    .ai-header {
+      background: var(--premium);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+    }
+
+    .ai-status {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .ai-chat {
+      padding: 1rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .ai-message {
+      background: var(--surface);
+      padding: 0.75rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ai-input {
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .ai-input input {
+      width: 100%;
+      background: var(--surface);
+      border: none;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .ai-input input:focus {
+      outline: none;
+      background: var(--surface-hover);
+    }
+
+    /* Enhanced Main Content */
     .main {
       padding: 2rem;
       overflow-y: auto;
     }
 
-    .page-title {
-      font-size: 1.75rem;
-      font-weight: 600;
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
       margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
     }
 
+    .welcome-section h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .welcome-section p {
+      color: var(--text-dim);
+      font-size: 1.1rem;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-premium {
+      background: var(--premium);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface-hover);
+      border-color: var(--primary);
+    }
+
+    /* Premium Stats Grid */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
       margin-bottom: 2rem;
     }
 
-    .card {
+    .stat-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
+      border-radius: 20px;
+      padding: 2rem;
       backdrop-filter: blur(20px);
-      transition: transform 0.2s;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
     }
 
-    .card:hover {
-      transform: translateY(-2px);
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--premium);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      border-color: var(--primary);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--premium);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .stat-trend {
+      background: var(--surface-hover);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
     .stat-value {
-      font-size: 2rem;
-      font-weight: 600;
+      font-size: 2.5rem;
+      font-weight: 700;
       margin-bottom: 0.5rem;
     }
 
     .stat-label {
       color: var(--text-dim);
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
     }
 
-    .stat-change {
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
+    .mini-chart {
+      height: 40px;
+      background: var(--surface-hover);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .positive { color: var(--success); }
-    .negative { color: var(--danger); }
+    .chart-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60%;
+      background: linear-gradient(to top, var(--primary), transparent);
+      clip-path: polygon(0% 100%, 20% 80%, 40% 90%, 60% 70%, 80% 60%, 100% 50%, 100% 100%);
+    }
 
-    .card-header {
+    /* Enhanced Dashboard Widgets */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .main-widget {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(20px);
+    }
+
+    .widget-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
-    .card-title {
-      font-size: 1.1rem;
+    .widget-title {
+      font-size: 1.3rem;
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .widget-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .widget-btn {
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      width: 35px;
+      height: 35px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .widget-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    /* Live Analytics */
+    .analytics-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--surface-hover);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      transition: all 0.3s;
+    }
+
+    .analytics-item:hover {
+      background: var(--surface);
+      transform: translateX(5px);
+    }
+
+    .analytics-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .analytics-content h4 {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .analytics-content p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .analytics-value {
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .analytics-number {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .analytics-change {
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    /* Activity Feed */
+    .activity-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .activity-avatar {
+      width: 35px;
+      height: 35px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: white;
+    }
+
+    .activity-content h4 {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .activity-content p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .activity-time {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-left: auto;
+    }
+
+    /* Enhanced Project Table */
+    .projects-widget {
+      grid-column: 1 / -1;
     }
 
     .table-container {
       overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
     }
 
     table {
@@ -214,26 +673,63 @@
     }
 
     th, td {
-      padding: 0.75rem;
+      padding: 1rem;
       text-align: left;
       border-bottom: 1px solid var(--border);
     }
 
     th {
-      font-size: 0.85rem;
+      background: var(--surface-hover);
+      font-size: 0.9rem;
       color: var(--text-dim);
-      font-weight: 500;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tbody tr:hover {
+      background: var(--surface);
+    }
+
+    .project-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-desc {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .team-avatars {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .team-avatar {
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: white;
+      border: 2px solid var(--bg-primary);
     }
 
     .status {
-      padding: 0.25rem 0.75rem;
+      padding: 0.4rem 1rem;
       border-radius: 20px;
       font-size: 0.8rem;
-      font-weight: 500;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .status-active {
-      background: rgba(34, 197, 94, 0.1);
+      background: rgba(16, 185, 129, 0.1);
       color: var(--success);
     }
 
@@ -242,25 +738,48 @@
       color: var(--warning);
     }
 
-    .status-inactive {
-      background: rgba(239, 68, 68, 0.1);
-      color: var(--danger);
+    .status-completed {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+    }
+
+    .progress-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
     .progress-bar {
-      height: 6px;
-      background: var(--border);
-      border-radius: 3px;
+      height: 8px;
+      background: var(--surface);
+      border-radius: 4px;
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
-      border-radius: 3px;
-      transition: width 0.3s;
+      border-radius: 4px;
+      transition: width 0.8s ease;
+      position: relative;
     }
 
-    /* Modal */
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shine 2s infinite;
+    }
+
+    .progress-text {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    /* Premium Modal */
     .modal {
       position: fixed;
       inset: 0;
@@ -272,6 +791,7 @@
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s;
+      backdrop-filter: blur(10px);
     }
 
     .modal.active {
@@ -280,32 +800,50 @@
     }
 
     .modal-content {
-      background: var(--bg);
+      background: var(--bg-secondary);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 20px;
       padding: 2rem;
       width: 90%;
-      max-width: 480px;
+      max-width: 500px;
+      transform: scale(0.9);
+      transition: transform 0.3s;
+    }
+
+    .modal.active .modal-content {
+      transform: scale(1);
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .modal-title {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .close-btn {
-      background: none;
-      border: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
       color: var(--text-dim);
-      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .close-btn:hover {
+      background: var(--danger);
+      color: white;
+      transform: scale(1.1);
     }
 
     .form-group {
@@ -315,23 +853,25 @@
     .form-group label {
       display: block;
       margin-bottom: 0.5rem;
-      font-size: 0.9rem;
+      font-weight: 500;
       color: var(--text);
     }
 
     .form-control {
       width: 100%;
-      padding: 0.75rem;
+      padding: 1rem;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 12px;
       color: var(--text);
       font-family: inherit;
+      transition: all 0.3s;
     }
 
     .form-control:focus {
       outline: none;
       border-color: var(--primary);
+      background: var(--surface-hover);
     }
 
     .form-actions {
@@ -340,7 +880,44 @@
       justify-content: flex-end;
     }
 
-    /* Responsivo */
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes slideUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-input {
+        width: 200px;
+      }
+
+      .search-input:focus {
+        width: 250px;
+      }
+    }
+
     @media (max-width: 768px) {
       .app {
         grid-template: auto 1fr / 1fr;
@@ -348,11 +925,11 @@
 
       .sidebar {
         position: fixed;
-        left: -260px;
+        left: -280px;
         top: 0;
         bottom: 0;
         z-index: 100;
-        width: 260px;
+        width: 280px;
         transition: left 0.3s;
       }
 
@@ -367,6 +944,29 @@
       .stats-grid {
         grid-template-columns: 1fr 1fr;
       }
+
+      .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .welcome-section h1 {
+        font-size: 2rem;
+      }
+
+      .ai-widget {
+        width: 280px;
+        bottom: 1rem;
+        right: 1rem;
+      }
+
+      .header-actions {
+        gap: 0.5rem;
+      }
+
+      .search-bar {
+        display: none;
+      }
     }
 
     @media (max-width: 480px) {
@@ -377,6 +977,33 @@
       .form-actions {
         flex-direction: column;
       }
+
+      .quick-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        justify-content: center;
+      }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--surface);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary);
     }
   </style>
 </head>
@@ -386,253 +1013,72 @@
       <div class="logo">
         <i class="fas fa-brain"></i>
         Zyx
+        <span class="premium-badge">Premium</span>
       </div>
-      <div class="user-menu">
-        <button class="btn btn-ghost">
-          <i class="fas fa-bell"></i>
-        </button>
-        <div class="avatar" onclick="toggleSidebar()">
-          <i class="fas fa-user"></i>
+      
+      <div class="header-actions">
+        <div class="search-bar">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="search-input" placeholder="Pesquisar projetos, usuários..." id="searchInput">
+        </div>
+        
+        <div class="notification-center">
+          <button class="notification-btn" onclick="toggleNotifications()">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </button>
+        </div>
+        
+        <div class="avatar-premium" onclick="toggleSidebar()">
+          <i class="fas fa-crown"></i>
         </div>
       </div>
     </header>
 
     <aside class="sidebar" id="sidebar">
-      <a href="#" class="nav-item active">
-        <i class="fas fa-home"></i>
-        Dashboard
-      </a>
-      <a href="#" class="nav-item" onclick="toggleData()">
-        <i class="fas fa-database"></i>
-        Dados
-      </a>
-      <div id="dataInfo" style="display: none; padding: 1rem; background: var(--surface); border-radius: 8px; margin: 1rem 0; font-size: 0.9rem;">
-        <h4 style="margin-bottom: 0.5rem;">📊 Sistema</h4>
-        <div style="color: var(--text-dim);">
-          👥 Usuários: <strong>2</strong><br>
-          ⏱ Último login: <strong>agora</strong><br>
-          🌐 Status: <span style="color: var(--success);">Online</span>
-        </div>
-      </div>
-      <a href="#" class="nav-item">
-        <i class="fas fa-cog"></i>
-        Configurações
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fas fa-users"></i>
-        Usuários
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fas fa-file-alt"></i>
-        Relatórios
-      </a>
-      <div style="margin-top: auto; padding-top: 2rem;">
-        <button class="btn btn-ghost" style="width: 100%;" onclick="logout()">
-          <i class="fas fa-sign-out-alt"></i>
-          Sair
-        </button>
-      </div>
-    </aside>
-
-    <main class="main">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-        <h1 class="page-title">Bem-vindo de volta!</h1>
-        <button class="btn" onclick="openModal()">
-          <i class="fas fa-plus"></i>
-          Novo Projeto
-        </button>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Menu Principal</div>
+        <a href="#" class="nav-item active" onclick="showDashboard()">
+          <i class="fas fa-home"></i>
+          Dashboard
+        </a>
+        <a href="#" class="nav-item" onclick="showProjects()">
+          <i class="fas fa-project-diagram"></i>
+          Projetos
+          <span class="nav-badge">12</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showAnalytics()">
+          <i class="fas fa-chart-line"></i>
+          Analytics
+        </a>
+        <a href="#" class="nav-item" onclick="showTeam()">
+          <i class="fas fa-users"></i>
+          Equipe
+          <span class="nav-badge">8</span>
+        </a>
       </div>
 
-      <div class="stats-grid">
-        <div class="card">
-          <div class="stat-value">1,248</div>
-          <div class="stat-label">Visitas Hoje</div>
-          <div class="stat-change positive">
-            <i class="fas fa-arrow-up"></i>
-            12% vs ontem
-          </div>
-        </div>
-        <div class="card">
-          <div class="stat-value">100%</div>
-          <div class="stat-label">Taxa de Conversão</div>
-          <div class="stat-change positive">
-            <i class="fas fa-arrow-up"></i>
-            5% vs mês passado
-          </div>
-        </div>
-        <div class="card">
-          <div class="stat-value">R$ 50k</div>
-          <div class="stat-label">Receita Mensal</div>
-          <div class="stat-change negative">
-            <i class="fas fa-arrow-down"></i>
-            3% vs mês passado
-          </div>
-        </div>
-        <div class="card">
-          <div class="stat-value">356</div>
-          <div class="stat-label">Novos Clientes</div>
-          <div class="stat-change positive">
-            <i class="fas fa-arrow-up"></i>
-            8% vs mês passado
-          </div>
-        </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Ferramentas IA</div>
+        <a href="#" class="nav-item" onclick="showAIReports()">
+          <i class="fas fa-robot"></i>
+          Relatórios IA
+        </a>
+        <a href="#" class="nav-item" onclick="showPredictions()">
+          <i class="fas fa-crystal-ball"></i>
+          Predições
+        </a>
+        <a href="#" class="nav-item" onclick="showAutomations()">
+          <i class="fas fa-cogs"></i>
+          Automações
+        </a>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <h2 class="card-title">Projetos Recentes</h2>
-          <button class="btn btn-ghost" onclick="refreshProjects()">
-            <i class="fas fa-sync-alt"></i>
-          </button>
-        </div>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Projeto</th>
-                <th>Responsável</th>
-                <th>Status</th>
-                <th>Progresso</th>
-              </tr>
-            </thead>
-            <tbody id="projectsTable">
-              <!-- Projetos carregados via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </main>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" id="projectModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Novo Projeto</h3>
-        <button class="close-btn" onclick="closeModal()">&times;</button>
-      </div>
-      <form onsubmit="createProject(event)">
-        <div class="form-group">
-          <label>Nome do Projeto</label>
-          <input type="text" class="form-control" id="projectName" required>
-        </div>
-        <div class="form-group">
-          <label>Responsável</label>
-          <select class="form-control" id="projectOwner" required>
-            <option value="">Selecionar</option>
-            <option value="João Silva">João Silva</option>
-            <option value="Maria Souza">Maria Souza</option>
-            <option value="Carlos Oliveira">Carlos Oliveira</option>
-          </select>
-        </div>
-        <div class="form-actions">
-          <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
-          <button type="submit" class="btn">Criar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    // Estado da aplicação
-    let projects = [
-      { name: "Dashboard Analytics", owner: "João Silva", status: "active", progress: 75 },
-      { name: "Integração API", owner: "Maria Souza", status: "pending", progress: 30 },
-      { name: "Segurança", owner: "Carlos Oliveira", status: "active", progress: 90 },
-      { name: "Migração BD", owner: "João Silva", status: "inactive", progress: 15 }
-    ];
-
-    // Renderizar projetos
-    function renderProjects() {
-      const table = document.getElementById('projectsTable');
-      table.innerHTML = projects.map(project => {
-        const statusClass = `status-${project.status}`;
-        const statusText = {
-          active: 'Ativo',
-          pending: 'Pendente',
-          inactive: 'Inativo'
-        }[project.status];
+      <div class="sidebar-section">
+        <div class="sidebar-title">Sistema</div>
+        <a href="#" class="nav-item" onclick="toggleSystemInfo()">
+          <i class="fas fa-database"></i>
+          Sistema
+        </a>
+        <div id="systemInfo" style="display: none; padding: 1rem; background: var(
         
-        const progressColor = project.progress > 70 ? 'var(--success)' :
-                             project.progress > 30 ? 'var(--warning)' : 'var(--danger)';
-        
-        return `
-          <tr>
-            <td>${project.name}</td>
-            <td>${project.owner}</td>
-            <td><span class="status ${statusClass}">${statusText}</span></td>
-            <td>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: ${project.progress}%; background: ${progressColor};"></div>
-              </div>
-            </td>
-          </tr>
-        `;
-      }).join('');
-    }
-
-    // Modal
-    function openModal() {
-      document.getElementById('projectModal').classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('projectModal').classList.remove('active');
-      document.getElementById('projectName').value = '';
-      document.getElementById('projectOwner').value = '';
-    }
-
-    // Criar projeto
-    function createProject(e) {
-      e.preventDefault();
-      const name = document.getElementById('projectName').value;
-      const owner = document.getElementById('projectOwner').value;
-      
-      projects.unshift({
-        name,
-        owner,
-        status: 'pending',
-        progress: 0
-      });
-      
-      renderProjects();
-      closeModal();
-    }
-
-    // Utilitários
-    function refreshProjects() {
-      renderProjects();
-    }
-
-    function toggleData() {
-      const info = document.getElementById('dataInfo');
-      info.style.display = info.style.display === 'none' ? 'block' : 'none';
-    }
-
-    function toggleSidebar() {
-      if (window.innerWidth <= 768) {
-        document.getElementById('sidebar').classList.toggle('active');
-      }
-    }
-
-    function logout() {
-      if (confirm('Deseja sair?')) {
-        alert('Logout realizado!');
-      }
-    }
-
-    // Inicializar
-    renderProjects();
-
-    // Fechar sidebar no mobile ao clicar fora
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
-        const sidebar = document.getElementById('sidebar');
-        if (!sidebar.contains(e.target) && !e.target.closest('.avatar')) {
-          sidebar.classList.remove('active');
-        }
-      }
-    });
-  </script>
-</body>
-</html>
