@@ -1,23 +1,23 @@
 <script>
-    // Objeto principal para gerenciar toda a lógica do dashboard
+    // Gerencia todos os dados e lógica da aplicação
     const App = {
-        // Dados (Inicia com dados padrão ou recupera do localStorage)
+        // Dados de exemplo, carregados do Local Storage ou padrão
         projects: JSON.parse(localStorage.getItem('projects')) || [
             { id: 1, name: "Dashboard de Analytics", responsible: "João Silva", status: "active", progress: 75 },
             { id: 2, name: "Integração de API", responsible: "Maria Souza", status: "pending", progress: 30 },
             { id: 3, name: "Atualização de Segurança", responsible: "Carlos Oliveira", status: "active", progress: 90 },
             { id: 4, name: "Migração de Banco de Dados", responsible: "Ana Santos", status: "inactive", progress: 10 }
         ],
-        nextProjectId: 5,
-        
-        // ----------------------------------------------------
-        // 1. RENDERIZAÇÃO E ATUALIZAÇÃO DA UI
-        // ----------------------------------------------------
+        nextProjectId: 5, // Ajuda a simular novos IDs
 
-        // Renderiza a tabela de projetos
+        // ------------------------- RENDERIZAÇÃO E UI -------------------------
+
+        // Renderiza a tabela de projetos com as novas AÇÕES
         renderProjects() {
             const projectsBody = document.getElementById('projectsBody');
-            projectsBody.innerHTML = '';
+            if (!projectsBody) return;
+
+            projectsBody.innerHTML = ''; 
             
             this.projects.forEach(project => {
                 const row = document.createElement('tr');
@@ -27,6 +27,7 @@
                     case 'active': statusClass = 'status-active'; statusText = 'Ativo'; break;
                     case 'pending': statusClass = 'status-pending'; statusText = 'Pendente'; break;
                     case 'inactive': statusClass = 'status-inactive'; statusText = 'Inativo'; break;
+                    default: statusClass = 'status-pending'; statusText = 'Pendente'; 
                 }
                 
                 let progressColor;
@@ -57,7 +58,7 @@
             localStorage.setItem('projects', JSON.stringify(this.projects));
         },
 
-        // Atualiza o Progress Ring (Taxa de Conversão)
+        // Atualiza o Progress Ring (Gráfico de Conversão)
         updateProgressRing(percent) {
             const ring = document.getElementById('conversionRing');
             const text = document.getElementById('conversionText');
@@ -65,6 +66,7 @@
 
             const radius = ring.r.baseVal.value;
             const circumference = 2 * Math.PI * radius;
+            // 25 é o valor do raio (r="25")
             const offset = circumference - (percent / 100) * circumference;
 
             ring.style.strokeDasharray = `${circumference} ${circumference}`;
@@ -72,78 +74,100 @@
             text.textContent = `${percent}%`;
         },
         
-        // ----------------------------------------------------
-        // 2. MODAIS E TOASTS
-        // ----------------------------------------------------
-        
-        openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const overlay = document.getElementById('overlay');
-            if (modal) {
-                modal.classList.add('active');
-                overlay.classList.add('active');
-            }
-        },
-
-        closeModals() {
-            document.querySelectorAll('.modal.active').forEach(modal => {
-                modal.classList.remove('active');
-            });
-            document.getElementById('overlay').classList.remove('active');
-        },
-
+        // Exibe o Toast de Notificação
         showToast(message, type = 'success') {
             const toast = document.getElementById('successToast');
-            const messageEl = document.getElementById('toastMessage');
-            
-            // Configurações do Toast
-            toast.className = 'toast show'; 
+            const messageEl = document.querySelector('#successToast .toast-message');
+            const titleEl = document.querySelector('#successToast .toast-title');
+            const iconEl = document.querySelector('#successToast .toast-icon');
+
+            if (!toast) return;
+
+            // Configurações baseadas no tipo
             if (type === 'error') {
                 toast.style.borderColor = 'var(--danger)';
-                toast.querySelector('.toast-icon').style.color = 'var(--danger)';
-                toast.querySelector('.toast-icon').className = 'fas fa-times-circle toast-icon';
+                iconEl.style.color = 'var(--danger)';
+                iconEl.className = 'fas fa-times-circle toast-icon';
+                titleEl.textContent = 'Atenção!';
             } else {
                 toast.style.borderColor = 'var(--success)';
-                toast.querySelector('.toast-icon').style.color = 'var(--success)';
-                toast.querySelector('.toast-icon').className = 'fas fa-check-circle toast-icon';
+                iconEl.style.color = 'var(--success)';
+                iconEl.className = 'fas fa-check-circle toast-icon';
+                titleEl.textContent = 'Sucesso!';
             }
             
             messageEl.textContent = message;
             
+            toast.classList.add('show');
             clearTimeout(this.toastTimeout);
             this.toastTimeout = setTimeout(() => toast.classList.remove('show'), 4000);
         },
-        
-        // ----------------------------------------------------
-        // 3. HANDLERS DE FORMULÁRIO E TABELA
-        // ----------------------------------------------------
-        
-        handleNewProject(e) {
-            e.preventDefault();
-            const form = e.target;
-            
-            const newProject = {
-                id: App.nextProjectId++,
-                name: form.elements.name.value,
-                responsible: form.elements.responsible.value,
-                status: 'pending',
-                progress: 0
-            };
 
-            App.projects.unshift(newProject);
-            App.renderProjects();
-            App.closeModals();
-            App.showToast(`Projeto "${newProject.name}" criado com sucesso!`);
-            form.reset();
+        // Fecha todos os Modais abertos
+        closeModals() {
+            document.querySelectorAll('.modal.active').forEach(modal => {
+                modal.classList.remove('active');
+            });
         },
-        
-        handleOpenEditModal(projectId) {
-            const project = App.projects.find(p => p.id === projectId);
-            if (!project) return App.showToast('Projeto não encontrado.', 'error');
 
-            const form = document.getElementById('editProjectForm');
+        // ------------------------- HANDLERS DE AÇÕES -------------------------
+
+        // 1. Ação para Nova Navegação (Configurações, Usuários, Relatórios)
+        handleNavigation(e) {
+            e.preventDefault();
+            // Pega o texto do link para usar no Toast
+            const linkText = e.target.closest('.nav-item').textContent.trim();
             
-            // Preenche o formulário com os dados do projeto
+            // Simula a mudança de página
+            this.showToast(`Acessando a funcionalidade: ${linkText}...`, 'success');
+        },
+
+        // 2. Ação do Botão SAIR (Logout)
+        handleLogout() {
+            this.showToast('Realizando logoff... Encerrando sessão.', 'error');
+            setTimeout(() => {
+                // Simulação de deslogar
+                document.body.innerHTML = '<h1 style="padding: 50px; text-align: center; color: var(--text); font-family: Inter, sans-serif;">Sessão Encerrada.</h1><p style="text-align: center; color: var(--text-light); font-family: Inter, sans-serif;">Obrigado por usar o Zyx.</p>';
+            }, 800);
+        },
+
+        // 3. Abre o Modal de Edição (Ação da Tabela)
+        handleOpenEditModal(projectId) {
+            // Cria e abre o modal de edição (pois não existia no seu HTML)
+            const project = this.projects.find(p => p.id === projectId);
+            if (!project) return this.showToast('Projeto não encontrado.', 'error');
+
+            // Adiciona um modal de edição dinamicamente (para evitar "tela branca")
+            let editModal = document.getElementById('editProjectModal');
+            if (!editModal) {
+                 const modalHTML = `
+                    <div class="modal" id="editProjectModal">
+                        <div class="modal-content">
+                            <h3 class="modal-title" id="editModalTitle">Editar Projeto</h3>
+                            <form id="editProjectForm">
+                                <input type="hidden" id="editProjectId">
+                                <div class="form-group"><label>Nome</label><input type="text" id="editProjectName" required></div>
+                                <div class="form-group"><label>Responsável</label><input type="text" id="editProjectOwner" required></div>
+                                <div class="form-group"><label>Status</label><select id="editProjectStatus">
+                                    <option value="active">Ativo</option><option value="pending">Pendente</option><option value="inactive">Inativo</option>
+                                </select></div>
+                                <div class="form-group"><label>Progresso (%)</label><input type="number" id="editProjectProgress" min="0" max="100" required></div>
+                                <div class="form-actions">
+                                    <button type="button" class="secondary" data-action="closeModal">Cancelar</button>
+                                    <button type="submit">Salvar Alterações</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                `;
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+                editModal = document.getElementById('editProjectModal');
+                
+                // Adiciona o listener para o novo formulário
+                document.getElementById('editProjectForm').addEventListener('submit', this.handleSaveEdit.bind(this));
+            }
+
+            // Preenche e mostra o modal
             document.getElementById('editModalTitle').textContent = `Editar: ${project.name}`;
             document.getElementById('editProjectId').value = project.id;
             document.getElementById('editProjectName').value = project.name;
@@ -151,9 +175,10 @@
             document.getElementById('editProjectStatus').value = project.status;
             document.getElementById('editProjectProgress').value = project.progress;
 
-            App.openModal('editProjectModal');
+            editModal.classList.add('active');
         },
         
+        // 4. Salva o Modal de Edição
         handleSaveEdit(e) {
             e.preventDefault();
             const form = e.target;
@@ -164,118 +189,101 @@
             const status = form.elements['editProjectStatus'].value;
             const progress = parseInt(form.elements['editProjectProgress'].value);
 
-            const projectIndex = App.projects.findIndex(p => p.id === id);
+            const projectIndex = this.projects.findIndex(p => p.id === id);
 
             if (projectIndex !== -1) {
-                App.projects[projectIndex] = { id, name, responsible, status, progress };
-                App.renderProjects();
-                App.closeModals();
-                App.showToast(`Projeto ${name} atualizado com sucesso!`);
+                // Atualiza o projeto no array
+                this.projects[projectIndex] = { id, name, responsible, status, progress };
+                
+                // Salva e renderiza
+                this.renderProjects();
+                this.closeModals();
+                this.showToast(`Projeto ${name} atualizado com sucesso!`);
             } else {
-                App.showToast('Erro ao salvar: Projeto não encontrado.', 'error');
+                this.showToast('Erro ao salvar: Projeto não encontrado.', 'error');
             }
         },
 
-        // ----------------------------------------------------
-        // 4. HANDLERS DE NAVEGAÇÃO
-        // ----------------------------------------------------
-        
-        // Handler para navegação dos links do sidebar
-        handleNavigation(e) {
-            e.preventDefault();
-            const linkText = e.target.closest('.nav-item').textContent.trim();
-            
-            // Simula o carregamento da nova página/funcionalidade
-            App.showToast(`Navegando para: ${linkText}...`, 'success');
-            
-            // Lógica de "mudar de página" (apenas para fins didáticos)
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            e.target.closest('.nav-item').classList.add('active');
-            
-            // No mundo real: window.location.href = e.target.href;
-        },
-
-        // Handler para o botão Sair/Logout
-        handleLogout() {
-            App.showToast('Realizando logoff... Esperamos você de volta!', 'error');
-            setTimeout(() => {
-                // Em um sistema real, aqui você faria a limpeza da sessão e redirecionamento
-                document.body.innerHTML = '<h1 style="padding: 50px; text-align: center; color: var(--text); font-family: Inter, sans-serif;">Sessão Encerrada.</h1><p style="text-align: center; color: var(--text-light); font-family: Inter, sans-serif;">Obrigado por usar o Zyx.</p>';
-            }, 800);
-        },
-
-        // ----------------------------------------------------
-        // 5. INICIALIZAÇÃO E EVENT LISTENERS
-        // ----------------------------------------------------
+        // ------------------------- INICIALIZAÇÃO E LISTENERS -------------------------
         
         init() {
             this.renderProjects();
             this.updateProgressRing(80);
+
+            // Listener para o botão de SAIR
+            document.getElementById('logoutBtn').addEventListener('click', this.handleLogout.bind(this));
+
+            // Listener para os botões de navegação (Configurações, Usuários, Relatórios)
+            document.querySelectorAll('.sidebar .nav-item').forEach(navItem => {
+                // Evita adicionar o listener ao Dashboard (item ativo) e Dados do Sistema (já tem modal)
+                if (!navItem.classList.contains('active') && navItem.id !== 'systemDataBtn') {
+                     navItem.addEventListener('click', this.handleNavigation.bind(this));
+                }
+            });
             
-            // 5.1. Listener Global para Modais e Botões de Ação
+            // Listener Global para Modais e Ações da Tabela
             document.addEventListener('click', (e) => {
-                const target = e.target.closest('[data-modal-target]');
-                const action = e.target.closest('[data-action]');
-                
-                // Abre Modais (Novo Projeto, Dados do Sistema)
-                if (target) {
-                    e.preventDefault();
-                    this.openModal(target.dataset.modalTarget);
-                } 
-                
-                // Ações de Botões (Fechar Modal, Fechar Toast, Editar Tabela)
-                else if (action) {
-                    const actionType = action.dataset.action;
-                    if (actionType === 'closeModal') {
-                        this.closeModals();
-                    } else if (actionType === 'closeToast') {
-                        document.getElementById('successToast').classList.remove('show');
-                    } else if (actionType === 'openEditModal' && action.dataset.projectId) {
-                        // Ação da Tabela que abre o modal de edição (AGORA FUNCIONAL)
-                        this.handleOpenEditModal(parseInt(action.dataset.projectId));
-                    }
+                // Ação da Tabela: Abrir Edição
+                const actionBtn = e.target.closest('[data-action="openEditModal"]');
+                if (actionBtn && actionBtn.dataset.projectId) {
+                    this.handleOpenEditModal(parseInt(actionBtn.dataset.projectId));
+                    return;
+                }
+
+                // Ação Genérica: Fechar Modal
+                const closeModalBtn = e.target.closest('[data-action="closeModal"]');
+                if (closeModalBtn) {
+                    this.closeModals();
+                    return;
                 }
             });
             
-            // 5.2. Listeners de Formulários
-            document.getElementById('projectForm').addEventListener('submit', this.handleNewProject);
-            document.getElementById('editProjectForm').addEventListener('submit', this.handleSaveEdit);
-            
-            // 5.3. Listeners de Navegação (Configurações, Usuários, Relatórios)
-            // Seleciona todos os links do nav que não têm um data-modal-target
-            document.querySelectorAll('.sidebar .nav-item:not([data-modal-target])').forEach(navItem => {
-                // Garante que o Dashboard (link ativo) e outros links sem ação direta sejam tratados
-                if (!navItem.classList.contains('active')) {
-                     navItem.addEventListener('click', this.handleNavigation);
-                }
+            // Listener para o botão de fechar modal (X) e Cancelar nos modais existentes
+            document.querySelectorAll('[data-modal-close]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault(); // Impede ação padrão da tag <a> se for o caso
+                    this.closeModals();
+                });
             });
-            
-            // 5.4. Botão de Atualizar e Logout (AGORA FUNCIONAL)
-            document.getElementById('refreshProjects').addEventListener('click', () => {
+
+            // Lógica do Formulário de Novo Projeto (Mantida)
+            const projectForm = document.getElementById('projectForm');
+            projectForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const projectName = document.getElementById('projectName').value;
+                const responsibleName = document.getElementById('projectOwner').value;
+
+                this.projects.unshift({
+                    id: this.nextProjectId++,
+                    name: projectName,
+                    responsible: responsibleName,
+                    status: 'pending',
+                    progress: 0
+                });
+                
                 this.renderProjects();
-                this.showToast('Projetos atualizados com sucesso.');
+                this.closeModals();
+                this.showToast(`Projeto "${projectName}" criado com sucesso.`);
+                projectForm.reset();
             });
-            
-            document.getElementById('logoutBtn').addEventListener('click', this.handleLogout);
-            
-            // 5.5. Lógica Mobile/Sidebar (Mantida para responsividade)
+
+            // Lógica do Sidebar (Mobile)
             const sidebar = document.getElementById('sidebar');
             const menuToggleBtn = document.getElementById('menuToggleBtn');
-            const overlay = document.getElementById('overlay');
-            
+
             menuToggleBtn.addEventListener('click', () => {
                 sidebar.classList.toggle('active');
-                overlay.classList.toggle('active');
             });
-            
-            overlay.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-                this.closeModals();
+
+            // Abre o modal de Dados do Sistema
+            document.getElementById('systemDataBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('systemDataModal').classList.add('active');
             });
         }
     };
 
-    // Inicia a aplicação após o DOM estar totalmente carregado
+    // Inicia a aplicação
     document.addEventListener('DOMContentLoaded', () => App.init());
 </script>
