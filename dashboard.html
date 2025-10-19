@@ -3,62 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Plataforma Inteligente Zyx - Dashboard Profissional">
-    <title>Zyx | Dashboard PRO Estável</title>
+    <meta name="description" content="Zyx Dashboard Hyper-Glass - Interface Profissional e Revolucionária">
+    <title>Zyx | Dashboard Revolution</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@500;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ------------------------- VARIÁVEIS & RESET ------------------------- */
         :root {
-            --bg: #0d1117; /* Fundo Principal Escuro */
-            --bg-lighter: #161b22; /* Fundo do Sidebar/Card */
-            --border-color: rgba(255, 255, 255, 0.1);
-            --primary: #58a6ff; /* Azul de Acento */
-            --primary-hover: #4595e8;
+            --bg: #0b0f14; /* Fundo mais profundo */
+            --bg-card: #141920; /* Fundo do Sidebar/Card */
+            --border-color: rgba(255, 255, 255, 0.15);
+            --primary: #58a6ff; /* Azul Ciano/Elétrico */
+            --primary-shadow: rgba(88, 166, 255, 0.2);
             --text: #c9d1d9;
             --text-light: #8b949e;
             --success: #3fb950;
             --warning: #d29922;
             --danger: #f85149;
-            --radius: 8px;
-            --shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            --radius: 10px;
+            --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.6);
         }
 
-        /* Reset Básico */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-color: var(--bg);
-            background-image: radial-gradient(circle at 10% 10%, rgba(88, 166, 255, 0.08) 0%, transparent 40%);
+            background-image: radial-gradient(circle at 15% 15%, var(--primary-shadow) 0%, transparent 35%);
             color: var(--text);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
-        /* ------------------------- LAYOUT PRINCIPAL ------------------------- */
-        .container {
-            display: flex;
-            flex: 1;
-        }
+        /* ------------------------- LAYOUT & HEADER ------------------------- */
+        .container { display: flex; flex: 1; }
         
-        /* ------------------------- HEADER ------------------------- */
         header {
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            background: rgba(13, 17, 23, 0.9);
+            background: rgba(11, 15, 20, 0.9);
             backdrop-filter: blur(8px);
             position: sticky;
             top: 0;
@@ -67,33 +59,27 @@
 
         .logo {
             font-family: 'Inter Tight', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.6rem;
+            font-weight: 800;
             display: flex;
             align-items: center;
             gap: 10px;
             color: var(--primary);
+            text-shadow: 0 0 5px var(--primary-shadow);
         }
 
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
+        .user-menu { display: flex; align-items: center; gap: 15px; }
         .user-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background-color: var(--primary);
-            color: var(--bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            cursor: pointer;
+            width: 38px; height: 38px; border-radius: 50%;
+            background-color: var(--primary); color: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600; cursor: pointer;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 8px rgba(88, 166, 255, 0.5);
+            transition: transform 0.2s;
         }
-        
+        .user-avatar:hover { transform: scale(1.05); }
+
         /* ------------------------- SIDEBAR ------------------------- */
         .sidebar {
             width: 250px;
@@ -102,30 +88,22 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            background: var(--bg-lighter);
+            background: var(--bg-card);
             position: sticky;
-            top: 66px; /* Altura do header */
-            height: calc(100vh - 66px);
+            top: 68px; /* Altura do header */
+            height: calc(100vh - 68px);
             overflow-y: auto;
+            transition: transform 0.3s ease-in-out; /* Para mobile */
         }
         
         .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            border-radius: var(--radius);
-            color: var(--text-light);
-            text-decoration: none;
-            transition: all 0.2s;
-            font-weight: 500;
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 14px; border-radius: var(--radius);
+            color: var(--text-light); text-decoration: none;
+            transition: all 0.2s; font-weight: 500;
         }
 
-        .nav-item:hover, .nav-item.active {
-            background: rgba(88, 166, 255, 0.15);
-            color: var(--text);
-        }
-
+        .nav-item:hover { background: rgba(255, 255, 255, 0.05); color: var(--text); }
         .nav-item.active {
             background: rgba(88, 166, 255, 0.25);
             color: var(--primary);
@@ -141,292 +119,129 @@
             gap: 30px;
         }
 
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
         .dashboard-title {
             font-family: 'Inter Tight', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
         }
 
         /* ------------------------- CARDS e STATS ------------------------- */
         .glass-card {
-            background: var(--bg-lighter);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             padding: 25px;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .glass-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 20px;
         }
-
-        .stat-card {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
         
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        
-        .stat-icon {
-            font-size: 1.5rem;
-            color: var(--primary);
-        }
-
+        .stat-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .stat-icon { font-size: 1.5rem; color: var(--primary); }
         .stat-value {
             font-family: 'Inter Tight', sans-serif;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 700;
+            transition: color 0.3s;
         }
+        .stat-card:hover .stat-value { color: var(--primary); }
+        .stat-label { color: var(--text-light); font-size: 0.95rem; font-weight: 500; }
 
-        .stat-label {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .stat-change {
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 600;
-        }
-
-        .positive { color: var(--success); }
-        .negative { color: var(--danger); }
-        
-        /* Progress Ring */
+        /* Progress Ring Melhorado */
         .progress-ring-container { position: relative; width: 60px; height: 60px; }
         .progress-ring { transform: rotate(-90deg); }
-        .progress-ring-circle { transition: stroke-dashoffset 0.35s; stroke-linecap: round; }
         .progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        /* ------------------------- TABELA ------------------------- */
-        .card-title {
-            font-family: 'Inter Tight', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
-        
-        .table-container {
-            overflow-x: auto;
-            max-height: 500px;
-            overflow-y: auto;
-            scrollbar-width: thin;
+            font-size: 0.8rem; font-weight: 700;
         }
 
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
+        /* ------------------------- TABELA DE PROJETOS ------------------------- */
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .card-title { font-family: 'Inter Tight', sans-serif; font-size: 1.4rem; font-weight: 700; }
 
-        th, td {
-            padding: 15px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.95rem;
-        }
-
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
         th {
-            font-weight: 600;
-            color: var(--text-light);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            position: sticky;
-            top: 0;
-            background: var(--bg-lighter);
-            z-index: 10;
+            font-weight: 600; color: var(--text-light); font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 0.8px;
+            position: sticky; top: 0; background: var(--bg-card); z-index: 10;
         }
-
-        tr:hover td {
-            background: rgba(88, 166, 255, 0.05);
-        }
+        tr:hover td { background: rgba(88, 166, 255, 0.08); }
         
-        .progress-cell {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .progress-bar-wrap {
-            flex-grow: 1;
-            background: var(--bg);
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            transition: width 0.5s ease;
-        }
+        .progress-cell { display: flex; align-items: center; gap: 10px; }
+        .progress-bar-wrap { flex-grow: 1; background: var(--bg); height: 8px; border-radius: 4px; overflow: hidden; }
+        .progress-bar { height: 100%; transition: width 0.5s ease; }
         
         .status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: var(--radius);
-            font-size: 0.8rem;
-            font-weight: 500;
-            min-width: 80px;
-            text-align: center;
+            display: inline-block; padding: 5px 10px; border-radius: 4px;
+            font-size: 0.8rem; font-weight: 500; min-width: 80px; text-align: center;
         }
-
         .status-active { background: rgba(63, 185, 80, 0.2); color: var(--success); }
         .status-pending { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
         .status-inactive { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
         
-        /* ------------------------- BOTÕES ------------------------- */
+        /* ------------------------- BOTÕES & MODAIS ------------------------- */
         button {
-            background: var(--primary);
-            color: var(--bg);
-            border: none;
-            border-radius: var(--radius);
-            padding: 10px 18px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.2s;
+            background: var(--primary); color: var(--bg);
+            border: none; border-radius: var(--radius);
+            padding: 10px 18px; font-size: 0.95rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            gap: 10px; transition: all 0.2s;
         }
-
-        button:hover {
-            background: var(--primary-hover);
-        }
-
-        button.secondary {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text);
-        }
-
-        button.secondary:hover {
-            background: var(--border-color);
-        }
+        button:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        button.secondary { background: transparent; border: 1px solid var(--border-color); color: var(--text); }
+        button.secondary:hover { background: rgba(255, 255, 255, 0.1); }
         
-        /* Botão Ação do Card/Tabela */
         .card-action {
-            background: none;
-            border: none;
-            color: var(--text-light);
-            padding: 5px;
-            font-size: 1rem;
+            background: none; border: none; color: var(--text-light); padding: 5px; font-size: 1rem;
         }
+        .card-action:hover { color: var(--primary); background: transparent; transform: none; }
         
-        .card-action:hover {
-            color: var(--primary);
-            background: transparent;
-            transform: none;
-        }
-
-        /* ------------------------- MODAL e TOAST ------------------------- */
+        /* Modal - Estilos base mantidos e refinados */
         .modal {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.8);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+            backdrop-filter: blur(10px);
         }
-
-        .modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
+        .modal.active { opacity: 1; pointer-events: all; }
         .modal-content {
-            background: var(--bg-lighter);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: var(--shadow);
-            transform: translateY(20px);
-            transition: transform 0.3s;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius); padding: 30px; max-width: 500px; width: 90%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            transform: scale(0.9); transition: transform 0.3s;
         }
-        
-        .modal.active .modal-content { transform: translateY(0); }
-        
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-light); }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px 15px;
-            background: var(--bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            transition: border-color 0.3s;
-        }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
-
-        .form-actions { display: flex; justify-content: flex-end; gap: 15px; margin-top: 30px; }
+        .modal.active .modal-content { transform: scale(1); }
         
         /* Toast (Notificação) */
         .toast {
             position: fixed; bottom: 30px; right: 30px;
-            background: var(--bg-lighter);
-            border: 1px solid var(--success);
-            border-radius: var(--radius);
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: var(--shadow);
-            transform: translateX(100%);
-            opacity: 0;
-            transition: all 0.3s ease-out;
+            background: var(--bg-card); border: 1px solid var(--success);
+            border-left: 5px solid var(--success);
+            border-radius: var(--radius); padding: 15px 20px;
+            display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            transform: translateX(120%); opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animação elástica */
             z-index: 1001;
         }
+        .toast.show { transform: translateX(0); opacity: 1; }
 
-        .toast.show {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .toast-icon { color: var(--success); font-size: 1.3rem; }
-        .toast-title { font-weight: 600; margin-bottom: 5px; }
-        .toast-message { font-size: 0.9rem; color: var(--text-light); }
-        
-        /* ------------------------- RESPONSIVIDADE ------------------------- */
+        /* ------------------------- RESPONSIVIDADE (Mobile) ------------------------- */
         #menuToggleBtn { display: none; }
         
         @media (max-width: 768px) {
@@ -435,38 +250,20 @@
             .main-content { padding: 20px; }
             .stats-grid { grid-template-columns: 1fr; }
             
-            /* Lógica de Esconder/Mostrar Sidebar */
+            /* Sidebar Flutuante */
             .sidebar {
-                position: fixed;
-                left: 0;
-                top: 0;
-                height: 100%;
-                z-index: 101;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease-in-out;
+                position: fixed; left: 0; top: 0; height: 100%;
+                z-index: 101; transform: translateX(-100%);
             }
-
-            .sidebar.active {
-                transform: translateX(0);
-                box-shadow: 4px 0 10px rgba(0, 0, 0, 0.5);
-            }
+            .sidebar.active { transform: translateX(0); }
             
-            /* Overlay quando o menu está aberto */
-            .main-content::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.4);
-                z-index: 100;
-                display: none;
+            /* Overlay */
+            .overlay {
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0, 0, 0, 0.6); z-index: 100;
+                opacity: 0; pointer-events: none; transition: opacity 0.3s;
             }
-            
-            .sidebar.active ~ .main-content::before {
-                display: block;
-            }
+            .overlay.active { opacity: 1; pointer-events: all; }
         }
     </style>
 </head>
@@ -477,10 +274,10 @@
             <span>Zyx</span>
         </div>
         <div class="user-menu">
-            <button class="secondary" id="menuToggleBtn">
+            <button class="secondary card-action" id="menuToggleBtn" title="Menu Mobile">
                 <i class="fas fa-bars"></i>
             </button>
-            <button class="secondary" id="notificationsBtn" title="Notificações">
+            <button class="secondary card-action" id="notificationsBtn" title="Notificações">
                 <i class="fas fa-bell"></i>
             </button>
             <div class="user-avatar" id="userAvatar">
@@ -495,7 +292,7 @@
                 <i class="fas fa-tachometer-alt"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="#" class="nav-item" id="systemDataBtn">
+            <a href="#" class="nav-item" data-modal-target="systemDataModal">
                 <i class="fas fa-server"></i>
                 <span>Dados do Sistema</span>
             </a>
@@ -519,9 +316,9 @@
         </aside>
 
         <main class="main-content">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">Bem-vindo, Arthur!</h1>
-                <button id="newProjectBtn">
+            <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 class="dashboard-title">Visão Geral da Plataforma</h1>
+                <button id="newProjectBtn" data-modal-target="newProjectModal">
                     <i class="fas fa-plus"></i>
                     <span>Novo Projeto</span>
                 </button>
@@ -533,7 +330,7 @@
                         <span class="stat-label">Visitas Hoje</span>
                         <i class="fas fa-chart-line stat-icon"></i>
                     </div>
-                    <div class="stat-value" id="statVisitas">1,248</div>
+                    <div class="stat-value">1,248</div>
                     <div class="stat-change positive">
                         <i class="fas fa-arrow-up"></i>
                         <span>12.5% vs. ontem</span>
@@ -546,22 +343,12 @@
                         <div class="progress-ring-container">
                             <svg class="progress-ring" width="60" height="60">
                                 <circle
-                                    class="progress-ring-circle"
-                                    stroke="var(--border-color)"
-                                    stroke-width="5"
-                                    fill="transparent"
-                                    r="25"
-                                    cx="30"
-                                    cy="30"/>
+                                    stroke="var(--border-color)" stroke-width="5" fill="transparent"
+                                    r="25" cx="30" cy="30"/>
                                 <circle
-                                    class="progress-ring-circle"
                                     id="conversionRing"
-                                    stroke="var(--success)"
-                                    stroke-width="5"
-                                    fill="transparent"
-                                    r="25"
-                                    cx="30"
-                                    cy="30"/>
+                                    stroke="var(--success)" stroke-width="5" fill="transparent"
+                                    r="25" cx="30" cy="30" style="transition: stroke-dashoffset 0.8s ease-out;"/>
                             </svg>
                             <span class="progress-text" id="conversionText">80%</span>
                         </div>
@@ -626,21 +413,22 @@
         </main>
     </div>
 
+    <div class="overlay" id="overlay"></div>
+
     <div class="modal" id="newProjectModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Criar Novo Projeto</h3>
-                <button class="modal-close" data-modal-close>&times;</button>
+                <button class="modal-close card-action" data-action="closeModal">&times;</button>
             </div>
             <form id="projectForm">
                 <div class="form-group">
                     <label for="projectName">Nome do Projeto</label>
-                    <input type="text" id="projectName" placeholder="Digite o nome do projeto" required>
+                    <input type="text" id="projectName" name="name" placeholder="Dashboard de Vendas" required>
                 </div>
                 <div class="form-group">
                     <label for="projectOwner">Responsável</label>
-                    <select id="projectOwner" required>
-                        <option value="">Selecione um responsável</option>
+                    <select id="projectOwner" name="responsible" required>
                         <option value="João Silva">João Silva</option>
                         <option value="Maria Souza">Maria Souza</option>
                         <option value="Carlos Oliveira">Carlos Oliveira</option>
@@ -648,12 +436,53 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="projectDeadline">Prazo</label>
-                    <input type="date" id="projectDeadline" required>
+                    <label for="projectDeadline">Prazo (Não usado no JS)</label>
+                    <input type="date" id="projectDeadline">
                 </div>
                 <div class="form-actions">
-                    <button type="button" class="secondary" data-modal-close>Cancelar</button>
+                    <button type="button" class="secondary" data-action="closeModal">Cancelar</button>
                     <button type="submit">Criar Projeto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="modal" id="editProjectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="editModalTitle">Editar Projeto</h3>
+                <button class="modal-close card-action" data-action="closeModal">&times;</button>
+            </div>
+            <form id="editProjectForm">
+                <input type="hidden" id="editProjectId">
+                <div class="form-group">
+                    <label for="editProjectName">Nome do Projeto</label>
+                    <input type="text" id="editProjectName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="editProjectOwner">Responsável</label>
+                    <select id="editProjectOwner" name="responsible" required>
+                        <option value="João Silva">João Silva</option>
+                        <option value="Maria Souza">Maria Souza</option>
+                        <option value="Carlos Oliveira">Carlos Oliveira</option>
+                        <option value="Ana Santos">Ana Santos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editProjectStatus">Status</label>
+                    <select id="editProjectStatus" name="status" required>
+                        <option value="active">Ativo</option>
+                        <option value="pending">Pendente</option>
+                        <option value="inactive">Inativo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editProjectProgress">Progresso (%)</label>
+                    <input type="number" id="editProjectProgress" name="progress" min="0" max="100" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="secondary" data-action="closeModal">Cancelar</button>
+                    <button type="submit">Salvar Alterações</button>
                 </div>
             </form>
         </div>
@@ -663,16 +492,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title"><i class="fas fa-server"></i> Dados do Sistema</h3>
-                <button class="modal-close" data-modal-close>&times;</button>
+                <button class="modal-close card-action" data-action="closeModal">&times;</button>
             </div>
-            <div style="padding: 10px 0; color: var(--text);">
-                <ul style="list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 15px;">
-                    <li>👥 Usuários ativos: <strong>2</strong></li>
-                    <li>⏱ Último login: <strong>agora</strong></li>
-                    <li>🌐 Status do servidor: <strong style="color: var(--success);">Online</strong></li>
-                    <li>🧠 Processos ativos: <strong>Analytics Engine, Redis Cache</strong></li>
-                    <li>💾 Consumo de CPU: <strong>12%</strong></li>
-                    <li>📊 Latência Média: <strong>45ms</strong></li>
+            <div style="padding: 10px 0; color: var(--text-light); line-height: 1.6;">
+                <p>Informações vitais de backend e infraestrutura.</p>
+                <ul style="list-style: none; padding-left: 0; margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                    <li>👥 Usuários Logados: <strong>2 (Você e o Cliente Beta)</strong></li>
+                    <li>🌐 Status da API: <strong style="color: var(--success);">100% OK</strong></li>
+                    <li>💾 Consumo de Memória (Servidor): <strong>12%</strong></li>
+                    <li>📊 Latência Média: <strong>45ms (Ótimo)</strong></li>
                 </ul>
             </div>
         </div>
@@ -682,184 +510,266 @@
         <i class="fas fa-check-circle toast-icon"></i>
         <div class="toast-content">
             <div class="toast-title">Sucesso!</div>
-            <div class="toast-message">Projeto criado com sucesso.</div>
+            <div class="toast-message" id="toastMessage">Ação realizada com sucesso.</div>
         </div>
-        <button class="toast-close">&times;</button>
+        <button class="toast-close card-action" data-action="closeToast">&times;</button>
     </div>
 
     <footer>
-        &copy; 2025 Zyx - Todos os direitos reservados.
+        &copy; 2025 Zyx - Desenvolvido para um futuro revolucionário.
     </footer>
 
     <script>
-        // Dados de exemplo, carregados do Local Storage ou padrão
-        let projects = JSON.parse(localStorage.getItem('projects')) || [
-            { name: "Dashboard de Analytics", responsible: "João Silva", status: "active", progress: 75 },
-            { name: "Integração de API", responsible: "Maria Souza", status: "pending", progress: 30 },
-            { name: "Atualização de Segurança", responsible: "Carlos Oliveira", status: "active", progress: 90 },
-            { name: "Migração de Banco de Dados", responsible: "Ana Santos", status: "inactive", progress: 10 }
-        ];
-
-        // ------------------------- RENDERIZAÇÃO -------------------------
-        function renderProjects() {
-            const projectsBody = document.getElementById('projectsBody');
-            projectsBody.innerHTML = ''; // Limpa a tabela antes de renderizar
+        // Objeto principal para gerenciar toda a lógica do dashboard
+        const App = {
+            // Dados (Inicia com dados padrão ou recupera do localStorage)
+            projects: JSON.parse(localStorage.getItem('projects')) || [
+                { id: 1, name: "Dashboard de Analytics", responsible: "João Silva", status: "active", progress: 75 },
+                { id: 2, name: "Integração de API", responsible: "Maria Souza", status: "pending", progress: 30 },
+                { id: 3, name: "Atualização de Segurança", responsible: "Carlos Oliveira", status: "active", progress: 90 },
+                { id: 4, name: "Migração de Banco de Dados", responsible: "Ana Santos", status: "inactive", progress: 10 }
+            ],
+            nextProjectId: 5,
             
-            projects.forEach((project, index) => {
-                const row = document.createElement('tr');
-                let statusClass, statusText;
+            // ----------------------------------------------------
+            // 1. RENDERIZAÇÃO E ATUALIZAÇÃO DA UI
+            // ----------------------------------------------------
+
+            // Renderiza a tabela de projetos
+            renderProjects() {
+                const projectsBody = document.getElementById('projectsBody');
+                projectsBody.innerHTML = '';
                 
-                switch(project.status) {
-                    case 'active': statusClass = 'status-active'; statusText = 'Ativo'; break;
-                    case 'pending': statusClass = 'status-pending'; statusText = 'Pendente'; break;
-                    case 'inactive': statusClass = 'status-inactive'; statusText = 'Inativo'; break;
-                    default: statusClass = 'status-pending'; statusText = 'Pendente'; 
-                }
-                
-                let progressColor;
-                if (project.progress < 30) {
-                    progressColor = 'var(--danger)';
-                } else if (project.progress < 70) {
-                    progressColor = 'var(--warning)';
-                } else {
-                    progressColor = 'var(--success)';
-                }
-                
-                row.innerHTML = `
-                    <td>${project.name}</td>
-                    <td>${project.responsible}</td>
-                    <td><span class="status ${statusClass}">${statusText}</span></td>
-                    <td>
-                        <div class="progress-cell">
-                            <div class="progress-bar-wrap">
-                                <div class="progress-bar" style="width: ${project.progress}%; background: ${progressColor};"></div>
+                this.projects.forEach(project => {
+                    const row = document.createElement('tr');
+                    let statusClass, statusText;
+                    
+                    switch(project.status) {
+                        case 'active': statusClass = 'status-active'; statusText = 'Ativo'; break;
+                        case 'pending': statusClass = 'status-pending'; statusText = 'Pendente'; break;
+                        case 'inactive': statusClass = 'status-inactive'; statusText = 'Inativo'; break;
+                    }
+                    
+                    let progressColor;
+                    if (project.progress < 30) { progressColor = 'var(--danger)'; } 
+                    else if (project.progress < 70) { progressColor = 'var(--warning)'; } 
+                    else { progressColor = 'var(--success)'; }
+                    
+                    row.innerHTML = `
+                        <td>${project.name}</td>
+                        <td>${project.responsible}</td>
+                        <td><span class="status ${statusClass}">${statusText}</span></td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar" style="width: ${project.progress}%; background: ${progressColor};"></div>
+                                </div>
+                                <span style="font-size: 0.85rem; color: ${progressColor}; font-weight: 600;">${project.progress}%</span>
                             </div>
-                            <span style="font-size: 0.85rem; color: ${progressColor}; font-weight: 600;">${project.progress}%</span>
-                        </div>
-                    </td>
-                    <td>
-                        <button class="card-action edit-btn" data-index="${index}" title="Editar Projeto">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </td>
-                `;
-                projectsBody.appendChild(row);
-            });
-        }
-        
-        // Função de Atualização do Progress Ring (Gráfico de Conversão)
-        function updateProgressRing(percent) {
-            const ring = document.getElementById('conversionRing');
-            const text = document.getElementById('conversionText');
-            if (!ring) return;
+                        </td>
+                        <td>
+                            <button class="card-action edit-btn" data-project-id="${project.id}" data-action="openEditModal" title="Editar Projeto">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
+                    `;
+                    projectsBody.appendChild(row);
+                });
+                localStorage.setItem('projects', JSON.stringify(this.projects));
+            },
 
-            const radius = ring.r.baseVal.value;
-            const circumference = 2 * Math.PI * radius;
-            const offset = circumference - (percent / 100) * circumference;
+            // Atualiza o Progress Ring (Taxa de Conversão)
+            updateProgressRing(percent) {
+                const ring = document.getElementById('conversionRing');
+                const text = document.getElementById('conversionText');
+                if (!ring) return;
 
-            ring.style.strokeDasharray = `${circumference} ${circumference}`;
-            ring.style.strokeDashoffset = offset;
-            text.textContent = `${percent}%`;
-        }
+                const radius = ring.r.baseVal.value;
+                const circumference = 2 * Math.PI * radius;
+                const offset = circumference - (percent / 100) * circumference;
 
-        // ------------------------- LÓGICA DE UI/EVENTOS -------------------------
-
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', () => {
-            renderProjects();
-            updateProgressRing(80); // Atualiza o anel de progresso
-        });
-
-        // 1. Lógica do Sidebar (Mobile)
-        const sidebar = document.getElementById('sidebar');
-        const menuToggleBtn = document.getElementById('menuToggleBtn');
-
-        // Abre/Fecha o menu
-        menuToggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        });
-        
-        // Fecha o menu ao clicar em um item (apenas em mobile)
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('active');
+                ring.style.strokeDasharray = `${circumference} ${circumference}`;
+                ring.style.strokeDashoffset = offset;
+                text.textContent = `${percent}%`;
+            },
+            
+            // ----------------------------------------------------
+            // 2. MODAIS E TOASTS
+            // ----------------------------------------------------
+            
+            // Abre o modal
+            openModal(modalId) {
+                const modal = document.getElementById(modalId);
+                const overlay = document.getElementById('overlay');
+                if (modal) {
+                    modal.classList.add('active');
+                    overlay.classList.add('active');
                 }
-            });
-        });
+            },
 
-        // 2. Lógica de Modais (Novo Projeto e Dados do Sistema)
-        const newProjectModal = document.getElementById('newProjectModal');
-        const systemDataModal = document.getElementById('systemDataModal');
-        
-        // Abre o modal de Novo Projeto
-        document.getElementById('newProjectBtn').addEventListener('click', () => {
-            newProjectModal.classList.add('active');
-        });
+            // Fecha o modal
+            closeModals() {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.getElementById('overlay').classList.remove('active');
+            },
 
-        // Abre o modal de Dados do Sistema
-        document.getElementById('systemDataBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            systemDataModal.classList.add('active');
-        });
-        
-        // Fecha qualquer modal ao clicar no botão de fechar (data-modal-close)
-        document.querySelectorAll('[data-modal-close]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.target.closest('.modal').classList.remove('active');
-            });
-        });
-        
-        // 3. Lógica do Formulário de Novo Projeto
-        const projectForm = document.getElementById('projectForm');
-        projectForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+            // Exibe o toast de notificação
+            showToast(message, type = 'success') {
+                const toast = document.getElementById('successToast');
+                const messageEl = document.getElementById('toastMessage');
+                
+                // Configurações do Toast
+                toast.className = 'toast show'; // Reseta e mostra
+                if (type === 'error') {
+                    toast.style.borderColor = 'var(--danger)';
+                    toast.querySelector('.toast-icon').style.color = 'var(--danger)';
+                    toast.querySelector('.toast-icon').className = 'fas fa-times-circle toast-icon';
+                } else {
+                    toast.style.borderColor = 'var(--success)';
+                    toast.querySelector('.toast-icon').style.color = 'var(--success)';
+                    toast.querySelector('.toast-icon').className = 'fas fa-check-circle toast-icon';
+                }
+                
+                messageEl.textContent = message;
+                
+                // Fecha automaticamente após 4 segundos
+                clearTimeout(this.toastTimeout);
+                this.toastTimeout = setTimeout(() => toast.classList.remove('show'), 4000);
+            },
             
-            const projectName = document.getElementById('projectName').value;
-            const responsibleName = document.getElementById('projectOwner').value;
-
-            projects.unshift({
-                name: projectName,
-                responsible: responsibleName,
-                status: 'pending',
-                progress: 0
-            });
+            // ----------------------------------------------------
+            // 3. HANDLERS DE FORMULÁRIO
+            // ----------------------------------------------------
             
-            localStorage.setItem('projects', JSON.stringify(projects));
-            renderProjects();
-            newProjectModal.classList.remove('active');
-            showToast('Projeto criado com sucesso.');
-            projectForm.reset();
-        });
+            // Handler para a criação de novo projeto
+            handleNewProject(e) {
+                e.preventDefault();
+                const form = e.target;
+                
+                const newProject = {
+                    id: App.nextProjectId++,
+                    name: form.elements.name.value,
+                    responsible: form.elements.responsible.value,
+                    status: 'pending',
+                    progress: 0
+                };
 
-        // 4. Lógica do Toast (Notificação)
-        const successToast = document.getElementById('successToast');
-        
-        function showToast(message) {
-            document.querySelector('#successToast .toast-message').textContent = message;
-            successToast.classList.add('show');
-            setTimeout(() => successToast.classList.remove('show'), 5000);
-        }
+                App.projects.unshift(newProject);
+                App.renderProjects();
+                App.closeModals();
+                App.showToast(`Projeto "${newProject.name}" criado com sucesso!`);
+                form.reset();
+            },
+            
+            // Handler para carregar dados para edição
+            handleOpenEditModal(projectId) {
+                const project = App.projects.find(p => p.id === projectId);
+                if (!project) return App.showToast('Projeto não encontrado.', 'error');
 
-        document.querySelector('#successToast .toast-close').addEventListener('click', () => {
-            successToast.classList.remove('show');
-        });
-        
-        // 5. Botão de Atualizar
-        document.getElementById('refreshProjects').addEventListener('click', () => {
-            // Simula uma atualização (idealmente faria uma chamada API)
-            renderProjects(); 
-            showToast('Dados atualizados.');
-        });
-        
-        // 6. Logout (Apenas um placeholder visual)
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-            showToast('Desconectando...');
-            setTimeout(() => {
-                // Em um ambiente real, seria redirecionado
-                document.body.innerHTML = '<h1 style="padding: 50px; text-align: center; color: var(--text);">Desconectado.</h1>';
-            }, 500);
-        });
+                const form = document.getElementById('editProjectForm');
+                
+                document.getElementById('editModalTitle').textContent = `Editar: ${project.name}`;
+                document.getElementById('editProjectId').value = project.id;
+                document.getElementById('editProjectName').value = project.name;
+                document.getElementById('editProjectOwner').value = project.responsible;
+                document.getElementById('editProjectStatus').value = project.status;
+                document.getElementById('editProjectProgress').value = project.progress;
+
+                App.openModal('editProjectModal');
+            },
+            
+            // Handler para salvar edições
+            handleSaveEdit(e) {
+                e.preventDefault();
+                const form = e.target;
+                
+                const id = parseInt(form.elements['editProjectId'].value);
+                const name = form.elements['editProjectName'].value;
+                const responsible = form.elements['editProjectOwner'].value;
+                const status = form.elements['editProjectStatus'].value;
+                const progress = parseInt(form.elements['editProjectProgress'].value);
+
+                const projectIndex = App.projects.findIndex(p => p.id === id);
+
+                if (projectIndex !== -1) {
+                    App.projects[projectIndex] = { id, name, responsible, status, progress };
+                    App.renderProjects();
+                    App.closeModals();
+                    App.showToast(`Projeto ${name} atualizado.`);
+                } else {
+                    App.showToast('Erro ao salvar: Projeto não encontrado.', 'error');
+                }
+            },
+
+            // ----------------------------------------------------
+            // 4. INICIALIZAÇÃO E EVENT LISTENERS
+            // ----------------------------------------------------
+            
+            init() {
+                this.renderProjects();
+                this.updateProgressRing(80); // Exemplo de taxa de conversão
+                
+                // Lógica de Modais (usando data-attributes)
+                document.addEventListener('click', (e) => {
+                    const target = e.target.closest('[data-modal-target]');
+                    const action = e.target.closest('[data-action]');
+                    
+                    if (target) {
+                        e.preventDefault();
+                        this.openModal(target.dataset.modalTarget);
+                    } else if (action) {
+                        const actionType = action.dataset.action;
+                        if (actionType === 'closeModal') {
+                            this.closeModals();
+                        } else if (actionType === 'closeToast') {
+                            document.getElementById('successToast').classList.remove('show');
+                        } else if (actionType === 'openEditModal' && action.dataset.projectId) {
+                            this.handleOpenEditModal(parseInt(action.dataset.projectId));
+                        }
+                    }
+                });
+                
+                // Submissão de Formulários
+                document.getElementById('projectForm').addEventListener('submit', this.handleNewProject);
+                document.getElementById('editProjectForm').addEventListener('submit', this.handleSaveEdit);
+                
+                // Botão de Atualizar
+                document.getElementById('refreshProjects').addEventListener('click', () => {
+                    this.renderProjects();
+                    this.showToast('Dados recarregados do Local Storage.');
+                });
+                
+                // Logout (Ação didática)
+                document.getElementById('logoutBtn').addEventListener('click', () => {
+                    this.showToast('Desconectando...');
+                    setTimeout(() => {
+                        alert("Logoff realizado! Em um ambiente real, você seria redirecionado.");
+                        // window.location.href = "/login";
+                    }, 500);
+                });
+                
+                // Lógica Mobile/Sidebar
+                const sidebar = document.getElementById('sidebar');
+                const menuToggleBtn = document.getElementById('menuToggleBtn');
+                const overlay = document.getElementById('overlay');
+                
+                menuToggleBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                });
+                
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    this.closeModals();
+                });
+            }
+        };
+
+        // Inicia a aplicação após o DOM estar totalmente carregado
+        document.addEventListener('DOMContentLoaded', () => App.init());
     </script>
 </body>
 </html>
